@@ -191,7 +191,7 @@ class Nilai extends Controller
             'wali_kelas' => ['nullable', 'string', 'max:255'],
             'nip_wali_kelas' => ['nullable', 'string', 'max:20'],
             'barcode_wali_kelas' => 'nullable|image|file|max:2048|mimes:png,jpg,jpeg|dimensions:max_width=300,max_height=300',
-
+            'tgl_print' => ['nullable', 'string', 'max:10'],
         ], [
             // data siswa
             'tahun_ajaran' => 'Masukan Tahun Ajaran',
@@ -467,7 +467,7 @@ class Nilai extends Controller
                 $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
                 $request->file('barcode_kepsek')->storeAs('public/images/barcode', $fileName);
                 $validatedData['barcode_kepsek'] = $fileName;
-            }else {
+            } else {
                 $validatedData['barcode_kepsek'] = null;
             }
             // 
@@ -476,7 +476,7 @@ class Nilai extends Controller
                 $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
                 $request->file('barcode_wali_kelas')->storeAs('public/images/barcode', $fileName);
                 $validatedData['barcode_wali_kelas'] = $fileName;
-            }else {
+            } else {
                 $validatedData['barcode_wali_kelas'] = null;
             }
             // 
@@ -492,6 +492,7 @@ class Nilai extends Controller
                 'wali_kelas' => $validatedData['wali_kelas'],
                 'nip_wali_kelas' => $validatedData['nip_wali_kelas'],
                 'barcode_wali_kelas' => $validatedData['barcode_wali_kelas'],
+                'tgl_print' => $validatedData['tgl_print'],
 
             ];
 
@@ -739,7 +740,8 @@ class Nilai extends Controller
             'wali_kelas' => ['nullable', 'string', 'max:255'],
             'nip_wali_kelas' => ['nullable', 'string', 'max:20'],
             'barcode_wali_kelas' => 'nullable|image|file|max:2048|mimes:png,jpg,jpeg|dimensions:max_width=300,max_height=300',
-
+            //
+            'tgl_print' => ['nullable', 'string', 'max:10'],
 
         ], [
             // data siswa
@@ -1041,8 +1043,7 @@ class Nilai extends Controller
             $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
             $request->file('barcode_kepsek')->storeAs('public/images/barcode', $fileName);
             $validatedData['barcode_kepsek'] = $fileName;
-        }
-        else {
+        } else {
             $validatedData['barcode_kepsek'] = $get_ttd->barcode_kepsek;
         }
 
@@ -1069,7 +1070,8 @@ class Nilai extends Controller
             'wali_kelas' => $validatedData['wali_kelas'],
             'nip_wali_kelas' => $validatedData['nip_wali_kelas'],
             'barcode_wali_kelas' => $validatedData['barcode_wali_kelas'],
-
+            //
+            'tgl_print' => $validatedData['tgl_print'],
         ];
 
         ModelTandaTangan::where('tahun_ajaran', $ketidakhadiran->tahun_ajaran)

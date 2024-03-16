@@ -338,6 +338,18 @@ return [
             'icon' => 'fas fa-print',
             'url'  => '/cetak'
         ],
+        ['header' => 'AKUN'],
+        [
+            'text' => 'Profile',
+            'icon' => 'fas fa-user',
+            'url'  => '/profile'
+        ],
+        [
+            'text' => 'Kelola Akun',
+            'icon' => 'fas fa-users',
+            'url'  => '/users',
+            'can'  => 'isAdmin'
+        ],
         // end master data
 
         // about

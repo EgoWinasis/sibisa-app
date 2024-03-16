@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ekstrakulikuler;
-use App\Models\Guru;
 use App\Models\Ketidakhadiran;
 use App\Models\ModelBeasiswa;
 use App\Models\ModelIjazah;
@@ -19,6 +18,7 @@ use App\Models\PelajarPancasila;
 use App\Models\Pengetahuan;
 use App\Models\Prestasi;
 use App\Models\Students;
+use Carbon\Carbon;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -946,7 +946,7 @@ class cetakController extends Controller
         $document->WriteHTML("
         <p  style='margin-left:5%;'>{$lain->lain_lain}</p>
     ");
-    $document->Output("{$siswa->nis}-{$siswa->nama_lengkap}.pdf", 'I');
+        $document->Output("{$siswa->nis}-{$siswa->nama_lengkap}.pdf", 'I');
     }
 
 
@@ -989,8 +989,7 @@ class cetakController extends Controller
 
 
 
-        // get date
-        $date = date("d-m-Y");
+
 
         // get sum and avg
         $total1 = 0;
@@ -1017,6 +1016,8 @@ class cetakController extends Controller
         }
 
 
+        Carbon::setLocale('id');
+        $date = Carbon::parse($ttd->tgl_print)->translatedFormat('d F Y');
         // barcode
 
         if (!empty($ttd->barcode_kepsek)) {
@@ -1595,8 +1596,7 @@ class cetakController extends Controller
                 </tbody>
              </table>
          ");
-         $document->Output("{$siswa->nis}-{$siswa->nama_lengkap}.pdf", 'I');
-
+        $document->Output("{$siswa->nis}-{$siswa->nama_lengkap}.pdf", 'I');
     }
 
 
@@ -1758,22 +1758,21 @@ class cetakController extends Controller
         
         ");
         $document->Output("{$siswa->nis}-{$siswa->nama_lengkap}.pdf", 'I');
-
     }
 
     public function ijazah($id)
     {
         $file = ModelIjazah::find($id);
-         return response()->file('storage/pdf/ijazah/'.$file->ijazah);
+        return response()->file('storage/pdf/ijazah/' . $file->ijazah);
     }
     public function skl($id)
     {
         $file = ModelIjazah::find($id);
-         return response()->file('storage/pdf/skl/'.$file->skl);
+        return response()->file('storage/pdf/skl/' . $file->skl);
     }
     public function skhun($id)
     {
         $file = ModelIjazah::find($id);
-         return response()->file('storage/pdf/skhun/'.$file->skhun);
+        return response()->file('storage/pdf/skhun/' . $file->skhun);
     }
 }

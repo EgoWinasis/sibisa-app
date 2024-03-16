@@ -656,6 +656,21 @@
                         {{-- uploud --}}
                         <x-adminlte-input-file  name="barcode_wali_kelas" value="{{old('barcode_wali_kelas')}}"
                             label="Uploud QR Code" fgroup-class="col-md-12" placeholder="Choose a file..." />
+                        {{-- tanggal print--}}
+                        @php
+                        $config = ['format' => 'DD-MM-YYYY'];
+                        @endphp
+                        <div class="col-md-12">
+                            <label for="tgl_print">Tanggal<span class="text-danger font-italic"></label>
+                            <x-adminlte-input-date value="{{old('tgl_print')}}" name="tgl_print" :config="$config"
+                                placeholder="DD-MM-YYYY">
+                                <x-slot name="appendSlot">
+                                    <div class="input-group-text bg-gradient-danger">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                </x-slot>
+                            </x-adminlte-input-date>
+                        </div>
                     </div>
                 </x-adminlte-card>
                 {{--End Data ttd Siswa Collapse --}}
@@ -689,6 +704,7 @@
         Angkatan 5 </div>
 @stop
 
+@section('plugins.TempusDominusBs4', true)
 
 @section('js')
 <script type="text/javascript">
