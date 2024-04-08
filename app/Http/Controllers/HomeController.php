@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ModelSettingDataSiswa;
 use App\Models\ModelSettingGuru;
+use App\Models\ModelSettingSiswa;
 use App\Models\ModelTahunAjaran;
+use App\Models\PelajarPancasila;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -31,11 +34,8 @@ class HomeController extends Controller
             Auth::logout();
             return redirect()->route('login')->with('error-active', 'Your account is inactive. Please contact Admin support.');
         }
-        $siswa = DB::table('students')->count();
-        $kelas = DB::table('class')->groupBy('kelas')->get();
-        $nilai = DB::table('ketidakhadiran')->count();
-        $file = DB::table('ijazah')->count();
-        $tahunAjaran = ModelTahunAjaran::where('status', 1)->get();
+        $tahunAjaran = ModelTahunAjaran::where('status', 1)->first();
+        $countAllSiswa = DB::table('students')->count();
         $nama = Auth::user()->name;
         $guru = ModelSettingGuru::where('id_tahun_ajaran', $tahunAjaran->first()->id)->get();
         $user_id = Auth::id();
@@ -82,14 +82,34 @@ class HomeController extends Controller
                 # code...
                 break;
         }
-      
+        if (Auth::user()->role != 'admin') {
+            $settingSiswa = ModelSettingSiswa::where('id_tahun_ajaran', $tahunAjaran->id)
+                ->where('kelas', $gurukelas)->first();
+            $countSiswa = ModelSettingDataSiswa::where('id_setting_siswa', $settingSiswa->id)->count();
+            $countNilai = PelajarPancasila::where('tahun_ajaran', $tahunAjaran->tahun_ajaran)
+                ->where('kelas', $gurukelas)
+                ->count();
+        }
+
+
         if (Auth::user()->role == 'admin') {
-            # code...
+            // get lulus 
+            $settingSiswa = ModelSettingSiswa::where('kelas', 7)->get();
+            $countSiswaLulus = 0;
+
+            foreach ($settingSiswa as $siswa) {
+                $count = ModelSettingDataSiswa::where('id_setting_siswa', $siswa->id)->count();
+                $countSiswaLulus += $count;
+            }
+
+            // guru
+            $countGuru = DB::table('users')->where('deleted_at', NULL)->count();
+
             return view('home')
-                ->with(compact('siswa', 'kelas', 'nilai', 'file', 'tahunAjaran', 'nama'));
+                ->with(compact('countAllSiswa','countSiswaLulus',  'countGuru',  'tahunAjaran', 'nama'));
         } else {
             return view('home_guru')
-                ->with(compact('siswa', 'kelas', 'nilai', 'file', 'tahunAjaran', 'nama', 'gurukelas'));
+                ->with(compact('countSiswa',  'countNilai', 'tahunAjaran', 'nama', 'gurukelas'));
         }
     }
 }

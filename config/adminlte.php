@@ -343,13 +343,7 @@ return [
             'url'  => '/ijazah',
             'can'  => 'isAdmin'
         ],
-        [
-            'text' => 'Cetak',
-            'icon' => 'fas fa-print',
-            'url'  => '/cetak',
-            'can'  => 'isAdmin'
 
-        ],
         [
             'text' => 'Pengaturan',
             'icon' => 'fas fa-users-cog',
@@ -383,6 +377,12 @@ return [
             'url'  => '/nilaiaktif',
             'can'  => 'isGuru'
         ],
+        [
+            'text' => 'Cetak',
+            'icon' => 'fas fa-print',
+            'url'  => '/cetak',
+
+        ],
         ['header' => 'AKUN'],
         [
             'text' => 'Profile',
@@ -394,6 +394,11 @@ return [
             'icon' => 'fas fa-users',
             'url'  => '/users',
             'can'  => 'isAdmin'
+        ],
+        [
+            'text' => 'Ubah Kata Sandi',
+            'url'  => 'password',
+            'icon' => 'fas fa-fw fa-lock',
         ],
         //    guru
 

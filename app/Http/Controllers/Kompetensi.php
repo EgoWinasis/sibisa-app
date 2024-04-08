@@ -78,8 +78,14 @@ class Kompetensi extends Controller
         ]);
 
         ModelKompetensi::create($validatedData);
-        return redirect()->route('nilai.index')
-        ->with('success', 'Berhasil Menambahkan Kompetensi Siswa');
+        if (auth()->user()->role == 'admin') {
+            return redirect()->route('nilai.index')
+            ->with('success', 'Berhasil Menambahkan Kompetensi Siswa');
+        }else{
+            return redirect()->route('nilaiaktif.index')
+            ->with('success', 'Berhasil Menambahkan Kompetensi Siswa');
+
+        }
         
     }
 
@@ -157,8 +163,15 @@ class Kompetensi extends Controller
         ]);
 
         ModelKompetensi::where('id', $id)->update($validatedData);
-        return redirect()->route('nilai.index')
-        ->with('success', 'Berhasil Mengedit Kompetensi Siswa');
+
+        if (auth()->user()->role == 'admin') {
+            return redirect()->route('nilai.index')
+            ->with('success', 'Berhasil Mengedit Kompetensi Siswa');
+        }else{
+            return redirect()->route('nilaiaktif.index')
+            ->with('success', 'Berhasil Mengedit Kompetensi Siswa');
+        }
+        
     }
 
     /**

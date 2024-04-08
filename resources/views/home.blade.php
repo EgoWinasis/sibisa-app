@@ -39,67 +39,70 @@
                 </div>
             @else
                 <div class="row">
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-6 col-6">
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>{{ $siswa }}</h3>
+                                <h3>{{ $countAllSiswa }}</h3>
 
-                                <p>Siswa</p>
+                                <p>Total Siswa</p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-users text-white" style="opacity: 0.4"></i>
                             </div>
-                            <a href="{{ route('siswa.index') }}" class="small-box-footer">More info <i
+                            <a href="{{ route('siswa.index') }}" class="small-box-footer">Info Detail <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
 
                     <!-- ./col -->
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-6 col-6">
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>{{ $nilai }}</h3>
+                                <h3>{{ $countGuru }}</h3>
 
-                                <p>Nilai</p>
+                                <p>Guru</p>
                             </div>
                             <div class="icon">
-                                <i class="fas fa-book text-white" style="opacity: 0.4"></i>
+                                <i class="fas fa-user-tie text-white" style="opacity: 0.4"></i>
                             </div>
-                            <a href="{{ route('nilai.index') }}" class="small-box-footer">More info <i
+                            <a href="{{ route('user.index') }}" class="small-box-footer">Info Detail <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
-                    <div class="col-lg-3 col-6">
+                </div>
+                <div class="row">
+
+                    <!-- ./col -->
+                    <div class="col-lg-6 col-6">
                         <!-- small box -->
-                        <div class="small-box bg-dark">
+                        <div class="small-box bg-primary">
                             <div class="inner">
-                                <h3>{{ $file }}</h3>
+                                <h3>{{ $countAllSiswa - $countSiswaLulus }}</h3>
 
-                                <p>Kompetensi</p>
+                                <p>Siswa Aktif</p>
                             </div>
                             <div class="icon">
-                                <i class="fas fa-trophy text-white" style="opacity: 0.4"></i>
+                                <i class="fas fa-user-check text-white" style="opacity: 0.4"></i>
                             </div>
-                            <a href="{{ route('nilai.index') }}" class="small-box-footer">More info <i
+                            <a href="{{ route('kelasaktif.index') }}" class="small-box-footer">Info Detail <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-6 col-6">
                         <!-- small box -->
                         <div class="small-box bg-secondary">
                             <div class="inner">
-                                <h3>{{ $file }}</h3>
+                                <h3>{{ $countSiswaLulus }}</h3>
 
-                                <p>Ijazah</p>
+                                <p>Siswa Lulus</p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-graduation-cap text-white" style="opacity: 0.4"></i>
                             </div>
-                            <a href="{{ route('ijazah.index') }}" class="small-box-footer">More info <i
+                            <a href="{{ route('ijazah.index') }}" class="small-box-footer">Info Detail <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -124,7 +127,7 @@
             Swal.fire({
                 icon: 'info',
                 title: 'Info',
-                html: 'Selamat Datang <strong>{{ $nama }}</strong>, <br>Saat ini Anda Bertugas Menjadi <strong>Admin</strong><br> untuk Tahun Ajaran <strong>{{ $tahunAjaran[0]->tahun_ajaran }}</strong>'
+                html: 'Selamat Datang <strong>{{ $nama }}</strong>, <br>Saat ini Anda Bertugas Menjadi <strong>Admin</strong><br> untuk Tahun Ajaran <strong>{{ $tahunAjaran->tahun_ajaran }}</strong>'
             });
         });
     </script>

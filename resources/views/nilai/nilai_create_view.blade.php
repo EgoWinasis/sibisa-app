@@ -41,8 +41,8 @@
                                 <label for="">Tahun Ajaran</label>
                             </div>
                             <div class="col-md-8">
-                                <input class="form-control" value="{{ $tahun }}"
-                                    name="tahun_ajaran" id="tahun_ajaran" type="text" readonly>
+                                <input class="form-control" value="{{ $tahun }}" name="tahun_ajaran"
+                                    id="tahun_ajaran" type="text" readonly>
                             </div>
                         </div>
                         <div class="row">
@@ -50,8 +50,8 @@
                                 <label for="">Kelas</label>
                             </div>
                             <div class="col-md-8">
-                                <input class="form-control"  value="{{ $kelas }}"
-                                style="margin-top: 10px" name="kelas" id="kelas" type="text" readonly>
+                                <input class="form-control" value="{{ $kelas }}" style="margin-top: 10px"
+                                    name="kelas" id="kelas" type="text" readonly>
                             </div>
                         </div>
 
@@ -60,8 +60,8 @@
                                 <label for="">Siswa</label>
                             </div>
                             <div class="col-md-8">
-                                <input class="form-control"  value="{{ $siswa->nama_lengkap }}"
-                                style="margin-top: 10px" name="siswa" id="siswa" type="text" readonly>
+                                <input class="form-control" value="{{ $siswa->nama_lengkap }}" style="margin-top: 10px"
+                                    name="siswa" id="siswa" type="text" readonly>
                             </div>
                             {{-- end input data siswa --}}
                         </div>
@@ -100,16 +100,14 @@
                                             <x-adminlte-input name="a1b2c1" value="{{ old('a1b2c1') }}"></x-adminlte-input>
                                         </td>
                                         <td>
-                                            <x-adminlte-input name="a1b2c2"
-                                                value="{{ old('a1b2c2') }}"></x-adminlte-input>
+                                            <x-adminlte-input name="a1b2c2" value="{{ old('a1b2c2') }}"></x-adminlte-input>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="text-center">3.</td>
                                         <td>Bergotong Royong</td>
                                         <td>
-                                            <x-adminlte-input name="a1b3c1"
-                                                value="{{ old('a1b3c1') }}"></x-adminlte-input>
+                                            <x-adminlte-input name="a1b3c1" value="{{ old('a1b3c1') }}"></x-adminlte-input>
                                         </td>
                                         <td>
                                             <x-adminlte-input name="a1b3c2"
@@ -747,8 +745,13 @@
 
                     <div class="d-flex justify-content-between col-md-12">
 
-                        <x-adminlte-button class="btn-flat col-sm-1 " onclick="return back();" theme="danger"
-                            icon="fas fa-lg fa-arrow-left" />
+                        @if (auth()->user()->role !== 'admin')
+                            <x-adminlte-button class="btn-flat col-sm-1 " onclick="return backguru();" theme="danger"
+                                icon="fas fa-lg fa-arrow-left" />
+                        @else
+                            <x-adminlte-button class="btn-flat col-sm-1 " onclick="return back();" theme="danger"
+                                icon="fas fa-lg fa-arrow-left" />
+                        @endif
 
                         <x-adminlte-button class="btn-flat col-sm-1 " type="submit" theme="success"
                             icon="fas fa-lg fa-save" />
@@ -778,6 +781,9 @@
     <script type="text/javascript">
         function back() {
             window.location = "{{ route('nilai.index') }}";
+        }
+        function backguru() {
+            window.location = "{{ route('nilaiaktif.index') }}";
         }
     </script>
 @stop

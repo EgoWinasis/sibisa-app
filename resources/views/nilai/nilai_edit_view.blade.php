@@ -62,7 +62,8 @@
                                 <label for="">Siswa</label>
                             </div>
                             <div class="col-md-8">
-                                <input class="form-control" value="{{ $ketidakhadiran->siswa }}" name="siswa" id="siswa" style="margin-top: 10px" type="text" readonly>
+                                <input class="form-control" value="{{ $ketidakhadiran->siswa }}" name="siswa"
+                                    id="siswa" style="margin-top: 10px" type="text" readonly>
                             </div>
                             {{-- end input data siswa --}}
                         </div>
@@ -812,9 +813,13 @@
                         </div>
                     </x-adminlte-card>
                     <div class="d-flex justify-content-between col-md-12">
-
-                        <x-adminlte-button class="btn-flat col-sm-1 " onclick="return back();" theme="danger"
-                            icon="fas fa-lg fa-arrow-left" />
+                        @if (auth()->user()->role !== 'admin')
+                            <x-adminlte-button class="btn-flat col-sm-1 " onclick="return backguru();" theme="danger"
+                                icon="fas fa-lg fa-arrow-left" />
+                        @else
+                            <x-adminlte-button class="btn-flat col-sm-1 " onclick="return back();" theme="danger"
+                                icon="fas fa-lg fa-arrow-left" />
+                        @endif
 
                         <x-adminlte-button class="btn-flat col-sm-1 " type="submit" theme="success"
                             icon="fas fa-lg fa-save" />
@@ -843,6 +848,9 @@
     <script type="text/javascript">
         function back() {
             window.location = "{{ route('nilai.index') }}";
+        }
+        function backguru() {
+            window.location = "{{ route('nilaiaktif.index') }}";
         }
     </script>
 @stop

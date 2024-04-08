@@ -106,11 +106,11 @@
     @endif --}}
 
     {{-- Register link --}}
-    @if ($register_url)
+    {{-- @if ($register_url)
         <p class="my-0">
             <a href="{{ $register_url }}">
                 {{ "Daftar" }}
             </a>
         </p>
-    @endif
+    @endif --}}
 @stop

@@ -50,7 +50,7 @@ class Nilai extends Controller
     {
 
         $tahun = $request->query('tahun');
-        
+
         $id = $request->query('id');
         $kelas = $request->query('kelas');
 
@@ -85,7 +85,7 @@ class Nilai extends Controller
             ->exists();
 
 
-        if (!$ketidakhadiranExist || !$pancasilaExist || !$pengetahuanExist|| !$ektrakulikulerExist|| !$tandaTanganExist) {
+        if (!$ketidakhadiranExist || !$pancasilaExist || !$pengetahuanExist || !$ektrakulikulerExist || !$tandaTanganExist) {
             $getKetidakhadiran = Ketidakhadiran::where('siswa', $siswa->nama_lengkap)
                 ->where('kelas', $kelas)
                 ->where('tahun_ajaran', $tahun)
@@ -559,8 +559,14 @@ class Nilai extends Controller
                 ->where('id_siswa', $update_siswa->id)
                 ->update($update_kelas);
             // 
-            return redirect()->route('nilai.index')
+            if (auth()->user()->role == 'admin') {
+                return redirect()->route('nilai.index')
                 ->with('success', 'Berhasil Menambahkan Nilai Siswa');
+            } else {
+                return redirect()->route('nilaiaktif.index')
+                ->with('success', 'Berhasil Menambahkan Nilai Siswa');
+            }
+            
         }
     }
 
@@ -1142,8 +1148,13 @@ class Nilai extends Controller
             ->where('id_siswa', $update_siswa->id)
             ->update($update_kelas);
         // 
-        return redirect()->route('nilai.index')
-            ->with('success', 'Berhasil Mengedit Nilai Siswa ' . $ketidakhadiran->siswa);
+        if (auth()->user()->role == 'admin') {
+            return redirect()->route('nilai.index')
+                ->with('success', 'Berhasil Mengedit Nilai Siswa ' . $ketidakhadiran->siswa);
+        } else {
+            return redirect()->route('nilaiaktif.index')
+                ->with('success', 'Berhasil Mengedit Nilai Siswa ' . $ketidakhadiran->siswa);
+        }
     }
 
     /**

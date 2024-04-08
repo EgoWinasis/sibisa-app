@@ -3,8 +3,10 @@
 use App\Http\Controllers\Siswa;
 use App\Http\Controllers\Kelas;
 use App\Http\Controllers\Nilai;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +31,10 @@ Route::resource('profile', ProfileController::class)->middleware('auth');
 Route::get('/foo', function () {
     Artisan::call('storage:link');
 });
+// user
+Route::resource('user', UserController::class)->middleware('auth');
+// password
+Route::resource('password', PasswordController::class)->middleware('auth');
 
 
 Route::group(['middleware' => 'profile.check'], function () {

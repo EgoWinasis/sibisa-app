@@ -15,6 +15,11 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
+                    <div class="row my-3">
+                        <div class="col-md-12">
+                            <x-adminlte-button onclick="return add();" label="Buat Akun" theme="primary" icon="fas fa-plus" />
+                        </div>
+                    </div>
                     <div class="row">
 
                         <div class="col-md-12">
@@ -42,8 +47,8 @@
                                                 <td>{{ $user->nip }}</td>
                                                 <td>{{ $user->role }}</td>
                                                 <td class="text-center">
-                                                    <img src="{{ asset('storage/images/profile/' . $user->image) }}" width="50px"
-                                                        alt="Foto">
+                                                    <img src="{{ asset('storage/images/profile/' . $user->image) }}"
+                                                        width="50px" alt="Foto">
                                                 </td>
                                                 <td>
                                                     @if ($user->isActive == 0)
@@ -83,6 +88,9 @@
 
 @section('js')
     <script type="text/javascript">
+        function add() {
+            window.location = "{{ route('user.create') }}";
+        }
         $(function() {
             $("#table_siswa").DataTable({
                 "paging": true,

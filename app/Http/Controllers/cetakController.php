@@ -13,6 +13,9 @@ use App\Models\ModelLainLain;
 use App\Models\ModelMeninggalkanSekolah;
 use App\Models\ModelOrangTua;
 use App\Models\ModelProgressSiswa;
+use App\Models\ModelSettingGuru;
+use App\Models\ModelSettingSiswa;
+use App\Models\ModelTahunAjaran;
 use App\Models\ModelTandaTangan;
 use App\Models\PelajarPancasila;
 use App\Models\Pengetahuan;
@@ -21,6 +24,7 @@ use App\Models\Students;
 use Carbon\Carbon;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use \Mpdf\Mpdf as PDF;
 
@@ -38,14 +42,74 @@ class cetakController extends Controller
      */
     public function index()
     {
-        $siswa = DB::table('students')
-            ->select('id', 'nis', 'nama_lengkap')
-            ->orderBy('nis')
-            ->get();
 
-        // dd($kepalaSekolah);
-        return view('cetak.cetak_view')
-            ->with(compact('siswa'));
+        if (auth()->user()->role == 'admin') {
+            $siswa = DB::table('students')
+                ->select('id', 'nis', 'nama_lengkap')
+                ->orderBy('nis')
+                ->get();
+            return view('cetak.cetak_view')
+                ->with(compact('siswa'));
+        } else {
+
+            $tahunAjaran = ModelTahunAjaran::where('status', 1)->get();
+            $guru = ModelSettingGuru::where('id_tahun_ajaran', $tahunAjaran->first()->id)->get();
+            $user_id = Auth::id();
+            $found_in_columns = 0;
+            $gurukelas = 0;
+            foreach ($guru as $row) {
+                $columns = [
+                    'id_guru1',
+                    'id_guru2',
+                    'id_guru3',
+                    'id_guru4',
+                    'id_guru5',
+                    'id_guru6',
+                ];
+
+                foreach ($columns as $column) {
+                    if ($row->$column == $user_id) {
+                        $found_in_columns = $column;
+                        break; // Exit the inner loop once the user ID is found in a column
+                    }
+                }
+            }
+            switch ($found_in_columns) {
+                case 'id_guru1':
+                    $gurukelas = 1;
+                    break;
+                case 'id_guru2':
+                    $gurukelas = 2;
+                    break;
+                case 'id_guru3':
+                    $gurukelas = 3;
+                    break;
+                case 'id_guru4':
+                    $gurukelas = 4;
+                    break;
+                case 'id_guru5':
+                    $gurukelas = 5;
+                    break;
+                case 'id_guru6':
+                    $gurukelas = 6;
+                    break;
+
+                default:
+                    # code...
+                    break;
+            }
+
+            $settingSiswa = ModelSettingSiswa::where('id_tahun_ajaran', $tahunAjaran->first()->id)
+                ->where('kelas', $gurukelas)
+                ->first();
+            $siswa = Students::whereIn('id', function ($query) use ($settingSiswa) {
+                $query->select('id_student')
+                    ->from('setting_data_siswa')
+                    ->where('id_setting_siswa', $settingSiswa->id);
+            })->get();
+            return view('cetak.cetak_guru_view')
+                ->with(compact('siswa','gurukelas'));
+        }
     }
 
 
@@ -1543,12 +1607,12 @@ class cetakController extends Controller
                 <tbody>
                     <tr>
                         <td width='5%'></td>
-                        <td width='30%' class='text-left pl-20'>
+                        <td width='30%' class='text-left pl-10'>
                             <p>Mengetahui,</p>
                         </td>
                         <td width='15%'></td>
                         <td width='15%'></td>
-                        <td width='30%' class='text-left pl-20'>
+                        <td width='30%' class='text-left pl-10'>
                             <p>Tegal, {$date}</p>
                         </td>
                         <td width='5%'></td>
@@ -1556,12 +1620,12 @@ class cetakController extends Controller
                     </tr>
                     <tr class='highlight'>
                         <td ></td>
-                        <td class='text-left pl-20'>
+                        <td class='text-left pl-10'>
                             <p>Kepala Sekolah</p> 
                         </td>
                         <td></td>
                         <td></td>
-                        <td class='text-left  pl-20'>
+                        <td class='text-left  pl-10'>
                             <p>Wali Kelas</p>
                         </td>
                         <td></td>
@@ -1577,19 +1641,19 @@ class cetakController extends Controller
                     </tr>
                     <tr>
                         <td></td>
-                        <td class='text-left  pl-20'>( {$ttd->kepsek} )</td>
+                        <td class='text-left  pl-10'>( {$ttd->kepsek} )</td>
                         <td></td>
                         <td></td>
-                        <td class='text-left  pl-20' >( {$ttd->wali_kelas} )</td>
+                        <td class='text-left  pl-10' >( {$ttd->wali_kelas} )</td>
                         <td></td>
                         
                     </tr>
                     <tr>
                         <td></td>
-                        <td class='text-left  pl-20'>NIP. {$ttd->nip_kepsek}</td>
+                        <td class='text-left  pl-10'>NIP. {$ttd->nip_kepsek}</td>
                         <td></td>
                         <td></td>
-                        <td class='text-left  pl-20'>NIP. {$ttd->nip_wali_kelas}</td>
+                        <td class='text-left  pl-10'>NIP. {$ttd->nip_wali_kelas}</td>
                         <td></td>
 
                     </tr>

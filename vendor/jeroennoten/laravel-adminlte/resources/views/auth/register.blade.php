@@ -14,7 +14,7 @@
 @section('auth_header', "Daftar Akun Baru")
 
 @section('auth_body')
-    <form action="{{ $register_url }}" method="post">
+    <form action="{{ route('user.store') }}" method="post">
         @csrf
 
         {{-- Name field --}}
@@ -100,9 +100,9 @@
 @stop
 
 @section('auth_footer')
-    <p class="my-0">
+    {{-- <p class="my-0">
         <a href="{{ $login_url }}">
             {{ "Saya Sudah Punya Akun" }}
         </a>
-    </p>
+    </p> --}}
 @stop
