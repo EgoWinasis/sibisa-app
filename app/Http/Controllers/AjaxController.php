@@ -31,31 +31,31 @@ class AjaxController extends Controller
 
     public function getNilai($id, $kelas, $siswa){
 
-        $tahun = $_COOKIE['tahun'];
+        // $tahun = $_COOKIE['tahun'];
         
-        if ($tahun == "") {
-            $tahun = null;
-        }
+        // if ($tahun == "") {
+        //     $tahun = null;
+        // }
 
         
-        $nilaiExist = Ketidakhadiran::where('siswa', $siswa)
-        ->where('kelas', $kelas)
-        ->where('tahun_ajaran', $tahun)
-        ->exists();
-        if ($nilaiExist) {
-            $siswa = Students::find($id);
-            $getKetidakhadiran = Ketidakhadiran::where('siswa', $siswa->nama_lengkap)
-                                ->where('kelas',$kelas)
-                                ->where('tahun_ajaran', $tahun)
-                                ->first();
+        // $nilaiExist = Ketidakhadiran::where('siswa', $siswa)
+        // ->where('kelas', $kelas)
+        // ->where('tahun_ajaran', $tahun)
+        // ->exists();
+        // if ($nilaiExist) {
+        //     $siswa = Students::find($id);
+        //     $getKetidakhadiran = Ketidakhadiran::where('siswa', $siswa->nama_lengkap)
+        //                         ->where('kelas',$kelas)
+        //                         ->where('tahun_ajaran', $tahun)
+        //                         ->first();
             
-            return redirect()->route('nilai.edit',$getKetidakhadiran->id);
-        } else {
-            return redirect()->route('nilai.create')
-            ->with('kelas', $kelas)
-            ->with('siswa', $siswa)
-            ;
-        }
+        //     return redirect()->route('nilai.edit',$getKetidakhadiran->id);
+        // } else {
+        //     return redirect()->route('nilai.create')
+        //     ->with('kelas', $kelas)
+        //     ->with('siswa', $siswa)
+        //     ;
+        // }
         
     }
    

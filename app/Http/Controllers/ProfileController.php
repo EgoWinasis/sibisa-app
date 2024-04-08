@@ -70,7 +70,7 @@ class ProfileController extends Controller
         $user = User::find($id);
 
         $validatedData = $request->validate([
-            'nip' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'max:255'],
             'name' => ['required', 'string', 'max:255'],
             // foto
             'image' => 'image|file|mimes:png,jpg,jpeg',

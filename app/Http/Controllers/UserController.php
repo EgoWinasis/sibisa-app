@@ -26,12 +26,12 @@ class UserController extends Controller
             return redirect()->route('login')->with('error-access', 'Akses Ditolak ');
         }
         $users = DB::table('users')
-            ->select('id', 'name', 'email', 'role', 'image', 'isActive')
+            ->select('id', 'name', 'nip', 'role', 'image', 'isActive')
             ->whereNull('deleted_at')
             ->orderBy('id')
             ->get();
 
-        return view('user.user_view')->with(compact('users'));;
+        return view('user.user_view')->with(compact('users'));
     }
 
     /**

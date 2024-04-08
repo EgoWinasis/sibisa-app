@@ -37,10 +37,12 @@
                                         </div>
                                     </x-slot>
                                 </x-adminlte-input-file>
-                                <x-adminlte-input name="nip" label="NIP / NIPB" placeholder="NIP / NIPB"
-                                    value="{{old('nip') ? old('nip') : $profile[0]->nip}}" />
+                                <x-adminlte-input name="nip" label="NIP" placeholder="NIP"
+                                    value="{{old('nip') ? old('nip') : $profile[0]->nip}}"  readonly/>
                                 <x-adminlte-input name="name" label="Nama" placeholder="Nama"
                                     value="{{old('name') ? old('name') : $profile[0]->name }}" />
+                                <x-adminlte-input type="email" name="email" label="Email" placeholder="Email"
+                                    value="{{old('email') ? old('email') : $profile[0]->email }}" />
                                
 
                                 <div class="row p-4">

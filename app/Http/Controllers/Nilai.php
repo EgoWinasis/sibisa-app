@@ -6,12 +6,14 @@ use App\Models\Ekstrakulikuler;
 use App\Models\Ketidakhadiran;
 use App\Models\ModelKelas;
 use App\Models\ModelKenaikan;
+use App\Models\ModelTahunAjaran;
 use App\Models\ModelTandaTangan;
 use Illuminate\Http\Request;
 use App\Models\PelajarPancasila;
 use App\Models\Pengetahuan;
 use App\Models\Prestasi;
 use App\Models\Students;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -46,11 +48,57 @@ class Nilai extends Controller
      */
     public function create(Request $request)
     {
-        $kelas = $request->session()->get('kelas');
-        $siswa = $request->session()->get('siswa');
-        return view('nilai.nilai_create_view')
-            ->with(compact('kelas'))
-            ->with(compact('siswa'));
+
+        $tahun = $request->query('tahun');
+        
+        $id = $request->query('id');
+        $kelas = $request->query('kelas');
+
+        if ($id === null || $kelas === null || $tahun === null) {
+            abort(403, 'Unauthorized action.');
+        }
+        $siswa = Students::find($id);
+
+
+        if (!$siswa) {
+            abort(403, 'Unauthorized action.');
+        }
+        $ketidakhadiranExist = Ketidakhadiran::where('siswa', $siswa->nama_lengkap)
+            ->where('kelas', $kelas)
+            ->where('tahun_ajaran', $tahun)
+            ->exists();
+        $pancasilaExist = PelajarPancasila::where('siswa', $siswa->nama_lengkap)
+            ->where('kelas', $kelas)
+            ->where('tahun_ajaran', $tahun)
+            ->exists();
+        $pengetahuanExist = Pengetahuan::where('siswa', $siswa->nama_lengkap)
+            ->where('kelas', $kelas)
+            ->where('tahun_ajaran', $tahun)
+            ->exists();
+        $ektrakulikulerExist = Ekstrakulikuler::where('siswa', $siswa->nama_lengkap)
+            ->where('kelas', $kelas)
+            ->where('tahun_ajaran', $tahun)
+            ->exists();
+        $tandaTanganExist = ModelTandaTangan::where('siswa', $siswa->nama_lengkap)
+            ->where('kelas', $kelas)
+            ->where('tahun_ajaran', $tahun)
+            ->exists();
+
+
+        if (!$ketidakhadiranExist || !$pancasilaExist || !$pengetahuanExist|| !$ektrakulikulerExist|| !$tandaTanganExist) {
+            $getKetidakhadiran = Ketidakhadiran::where('siswa', $siswa->nama_lengkap)
+                ->where('kelas', $kelas)
+                ->where('tahun_ajaran', $tahun)
+                ->first();
+            return view('nilai.nilai_create_view', compact('kelas', 'tahun', 'siswa'));
+        } else {
+            $getKetidakhadiran = Ketidakhadiran::where('siswa', $siswa->nama_lengkap)
+                ->where('kelas', $kelas)
+                ->where('tahun_ajaran', $tahun)
+                ->first();
+
+            return redirect()->route('nilai.edit', $getKetidakhadiran->id);
+        }
     }
 
     /**
@@ -480,6 +528,9 @@ class Nilai extends Controller
                 $validatedData['barcode_wali_kelas'] = null;
             }
             // 
+            if (!isset($validatedData['tgl_print'])) {
+                $validatedData['tgl_print'] = date('d-m-Y');
+            }
             $ttd = [
                 'tahun_ajaran' => $validatedData['tahun_ajaran'],
                 'kelas' => $validatedData['kelas'],

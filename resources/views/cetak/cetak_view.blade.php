@@ -28,7 +28,7 @@
 
     <div class="row">
 
-      <div class="col-md-12">
+      <div class="col-md-12 mb-5">
 
         <table id="table_kelas" class="table table-bordered table-striped">
           <thead>

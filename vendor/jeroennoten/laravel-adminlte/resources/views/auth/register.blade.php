@@ -11,7 +11,7 @@
     @php( $register_url = $register_url ? url($register_url) : '' )
 @endif
 
-@section('auth_header', __('adminlte::adminlte.register_message'))
+@section('auth_header', "Daftar Akun Baru")
 
 @section('auth_body')
     <form action="{{ $register_url }}" method="post">
@@ -37,16 +37,16 @@
 
         {{-- Email field --}}
         <div class="input-group mb-3">
-            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                   value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}">
+            <input type="text" name="nip" class="form-control @error('nip') is-invalid @enderror"
+                   value="{{ old('nip') }}" placeholder="{{ "NIP" }}">
 
             <div class="input-group-append">
                 <div class="input-group-text">
-                    <span class="fas fa-envelope {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                    <span class="fas fa-id-card {{ config('adminlte.classes_auth_icon', '') }}"></span>
                 </div>
             </div>
 
-            @error('email')
+            @error('nip')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -102,7 +102,7 @@
 @section('auth_footer')
     <p class="my-0">
         <a href="{{ $login_url }}">
-            {{ __('adminlte::adminlte.i_already_have_a_membership') }}
+            {{ "Saya Sudah Punya Akun" }}
         </a>
     </p>
 @stop

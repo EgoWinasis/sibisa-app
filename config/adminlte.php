@@ -292,7 +292,7 @@ return [
     'menu' => [
         // Navbar items:
         [
-            'text' => ' Dashboard',
+            'text' => ' Beranda',
             'url'  => '/home',
             'icon' => 'fas fa-home',
         ],
@@ -318,25 +318,70 @@ return [
                 [
                     'text' => 'Siswa',
                     'url'  => '/siswa',
-                ]
-                ,
-            ]
+                ],
+            ],
+            'can'  => 'isAdmin'
         ],
-        
+
+        [
+            'text' => 'Data Kelas',
+            'icon' => 'fas fa-school',
+            'url'  => '/kelasaktif',
+            'can'  => 'isAdmin'
+
+        ],
         [
             'text' => 'Data Nilai',
             'icon' => 'fas fa-book',
-            'url'  => '/nilai'
+            'url'  => '/nilai',
+            'can'  => 'isAdmin'
+
         ],
         [
             'text' => 'Data Ijazah',
             'icon' => 'fas  fa-graduation-cap',
-            'url'  => '/ijazah'
+            'url'  => '/ijazah',
+            'can'  => 'isAdmin'
         ],
         [
             'text' => 'Cetak',
             'icon' => 'fas fa-print',
-            'url'  => '/cetak'
+            'url'  => '/cetak',
+            'can'  => 'isAdmin'
+
+        ],
+        [
+            'text' => 'Pengaturan',
+            'icon' => 'fas fa-users-cog',
+            'submenu' => [
+                [
+                    'text' => 'Tahun Ajaran',
+                    'url'  => '/tahunajaran',
+                ],
+                [
+                    'text' => 'Guru',
+                    'url'  => '/aturguru',
+                ],
+                [
+                    'text' => 'Siswa',
+                    'url'  => '/atursiswa',
+                ],
+            ],
+            'can'  => 'isAdmin'
+
+        ],
+        // guru
+        [
+            'text' => 'Siswa',
+            'icon' => 'fas fa-users',
+            'url'  => '/siswaaktif',
+            'can'  => 'isGuru'
+        ],
+        [
+            'text' => 'Nilai',
+            'icon' => 'fas fa-book',
+            'url'  => '/nilaiaktif',
+            'can'  => 'isGuru'
         ],
         ['header' => 'AKUN'],
         [
@@ -350,16 +395,19 @@ return [
             'url'  => '/users',
             'can'  => 'isAdmin'
         ],
+        //    guru
+
+
         // end master data
 
         // about
         ['header' => 'APP'],
         [
-            'text' => ' About',
+            'text' => ' Tentang',
             'url'  => '/about',
             'icon' => 'fas fa-address-card'
         ]
-       
+
 
     ],
 
@@ -568,7 +616,7 @@ return [
                 ],
             ],
         ],
-       'BootstrapSelect' => [
+        'BootstrapSelect' => [
             'active' => false,
             'files' => [
                 [

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ModelIjazah;
+use App\Models\ModelSettingDataSiswa;
+use App\Models\ModelSettingSiswa;
 use App\Models\Students;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,9 +19,21 @@ class Ijazah extends Controller
      */
     public function index()
     {
-        $siswa = DB::table('students')
-            ->select('id', 'nis', 'nama_lengkap')
-            ->get();
+
+      
+
+        $siswa = [];
+
+        $lulus = ModelSettingSiswa::where('kelas', 7)->get();
+
+        foreach ($lulus as $idsiswa) {
+            $dataSiswa = ModelSettingDataSiswa::where('id_setting_siswa', $idsiswa->id)->get();
+
+            foreach ($dataSiswa as $data) {
+                $student = Students::where('id', $data->id_student)->first();
+                $siswa[] = $student;
+            }
+        }
 
         return view('ijazah.ijazah_view')
             ->with(compact('siswa'));
@@ -48,9 +62,9 @@ class Ijazah extends Controller
     {
         $validatedData = $request->validate([
             'id_siswa' => ['required', 'max:20'],
-            'ijazah' => ['nullable','mimes:pdf','max:2048'],
-            'skl' => ['nullable','mimes:pdf','max:2048'],
-            'skhun' => ['nullable','mimes:pdf','max:2048'],
+            'ijazah' => ['nullable', 'mimes:pdf', 'max:2048'],
+            'skl' => ['nullable', 'mimes:pdf', 'max:2048'],
+            'skhun' => ['nullable', 'mimes:pdf', 'max:2048'],
         ]);
 
         if ($request->file('ijazah')) {
@@ -100,9 +114,8 @@ class Ijazah extends Controller
         $siswa = Students::find($ijazah->id_siswa);
 
         return view('ijazah.ijazah_edit_view')
-        ->with(compact('ijazah'))
-        ->with(compact('siswa'))
-        ;
+            ->with(compact('ijazah'))
+            ->with(compact('siswa'));
     }
 
     /**
@@ -114,13 +127,13 @@ class Ijazah extends Controller
      */
     public function update(Request $request, $id)
     {
-      
+
         $file = ModelIjazah::find($id);
         $validatedData = $request->validate([
             'id_siswa' => ['required', 'max:20'],
-            'ijazah' => ['nullable','mimes:pdf','max:2048'],
-            'skl' => ['nullable','mimes:pdf','max:2048'],
-            'skhun' => ['nullable','mimes:pdf','max:2048'],
+            'ijazah' => ['nullable', 'mimes:pdf', 'max:2048'],
+            'skl' => ['nullable', 'mimes:pdf', 'max:2048'],
+            'skhun' => ['nullable', 'mimes:pdf', 'max:2048'],
         ]);
 
         if ($request->file('ijazah')) {

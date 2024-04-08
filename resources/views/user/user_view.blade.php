@@ -24,8 +24,8 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>Username</th>
-                                        <th>Role</th>
+                                        <th>NIP</th>
+                                        <th>Peran</th>
                                         <th>Foto</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -39,7 +39,7 @@
                                             <tr>
                                                 <td>{{ $i++ }}</td>
                                                 <td class="nama">{{ $user->name }}</td>
-                                                <td>{{ $user->email }}</td>
+                                                <td>{{ $user->nip }}</td>
                                                 <td>{{ $user->role }}</td>
                                                 <td class="text-center">
                                                     <img src="{{ asset('storage/images/profile/' . $user->image) }}" width="50px"
@@ -50,9 +50,9 @@
                                                         <a class="btn btn-info btn-active"
                                                             data-id="{{ $user->id }}">Active</a>
                                                     @endif
-                                                    <a class="btn btn-info btn-role" data-id="{{ $user->id }}">Role</a>
+                                                    <a class="btn btn-info btn-role" data-id="{{ $user->id }}">Peran</a>
                                                     <a class="btn btn-danger btn-delete"
-                                                        data-id="{{ $user->id }}">Delete</a>
+                                                        data-id="{{ $user->id }}">Hapus</a>
                                                 </td>
                                             </tr>
                                         @endif
@@ -168,13 +168,13 @@
             var token = $("meta[name='csrf-token']").attr("content");
             // Show SweetAlert modal with select dropdown
             Swal.fire({
-                title: 'Select Role',
+                title: 'Pilih Peran',
                 input: 'select',
                 inputOptions: {
                     'guru': 'Guru',
                     'admin': 'Admin',
                 },
-                inputPlaceholder: 'Select a role',
+                inputPlaceholder: 'Pilih Peran',
                 showCancelButton: true,
                 confirmButtonText: 'Save',
                 preConfirm: (selectedRole) => {
@@ -190,7 +190,7 @@
                         success: function(data) {
                             Swal.fire(
                                 'Updated!',
-                                'Data role berhasil diubah!',
+                                'Data Peran berhasil diubah!',
                                 'success'
                             )
                             window.location.reload();

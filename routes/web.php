@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Siswa;
 use App\Http\Controllers\Kelas;
+use App\Http\Controllers\Nilai;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 Route::resource('users', UserController::class)->middleware('auth');
 Route::resource('profile', ProfileController::class)->middleware('auth');
-
+Route::get('/foo', function () {
+    Artisan::call('storage:link');
+});
 
 
 Route::group(['middleware' => 'profile.check'], function () {
@@ -37,11 +40,24 @@ Route::group(['middleware' => 'profile.check'], function () {
     Route::resource('kelas', \App\Http\Controllers\Kelas::class)->middleware('auth');
     // route nilai
     Route::resource('nilai', \App\Http\Controllers\Nilai::class)->middleware('auth');
+
     Route::resource('kompetensi', \App\Http\Controllers\Kompetensi::class)->middleware('auth');
     Route::resource('ijazah', \App\Http\Controllers\Ijazah::class)->middleware('auth');
+    // tahun ajaran
+    Route::resource('tahunajaran', \App\Http\Controllers\TahunAjaranController::class)->middleware('auth');
+    // guru
+    Route::resource('aturguru', \App\Http\Controllers\SettingGuruController::class)->middleware('auth');
+    // siswa
+    Route::resource('atursiswa', \App\Http\Controllers\SettingSiswaController::class)->middleware('auth');
+    // siswa Aktif
+    Route::resource('siswaaktif', \App\Http\Controllers\SiswaAktifController::class)->middleware('auth');
+    // nilai Aktif
+    Route::resource('nilaiaktif', \App\Http\Controllers\NilaiAktifController::class)->middleware('auth');
+    // kelas Aktif
+    Route::resource('kelasaktif', \App\Http\Controllers\KelasAktifController::class)->middleware('auth');
 
 
-    Route::get('/getNilai/{id}/{kelas}/{siswa}', [App\Http\Controllers\AjaxController::class, 'getNilai'])->name('getNilai');
+    // Route::get('/getNilai', [App\Http\Controllers\AjaxController::class, 'getNilai'])->name('getNilai');
     // set Kelas
     Route::get('/setKelas/{id}/{kelas}', [App\Http\Controllers\AjaxController::class, 'setKelas'])->name('setKelas');
     // cetak

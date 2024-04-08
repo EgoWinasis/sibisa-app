@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-md-12">
 
-            <h1 class="m-0 text-dark">Data Nilai Siswa</h1>
+            <h1 class="m-0 text-dark">Data Nilai Siswa Kelas {{ $gurukelas }}</h1>
         </div>
     </div>
 @stop
@@ -58,23 +58,16 @@
                                             $kelas = DB::table('class')
                                                 ->select('id', 'id_siswa', 'kelas', 'tinggal_kelas', 'tahun_ajaran')
                                                 ->where('id_siswa', $isi->id)
-                                                ->orderBy('kelas', 'asc')
-                                                ->get();
+                                                ->where('kelas', $gurukelas)
+                                                ->first();
                                         @endphp
 
-                                        @foreach ($kelas as $item)
-                                            @if ($item->tinggal_kelas == 'false')
-                                                <a href="{{ route('nilai.create', ['id' => $isi->id, 'kelas' => $item->kelas, 'tahun' => $item->tahun_ajaran]) }}"
-                                                    class="btn btn-info btn-kelas {{ $item->tahun_ajaran ? '' : 'btn-kelas-empty' }}" data data-id="{{ $item->id }}"
-                                                    data-tahun="{{ $item->tahun_ajaran }}">{{ $item->kelas }}</a>
-                                            @else
-                                                <a href="{{ route('nilai.create', ['id' => $isi->id, 'kelas' => $item->kelas, 'tahun' => $item->tahun_ajaran]) }}"
-                                                    class="btn btn-warning btn-kelas" data data-id="{{ $item->id }}"
-                                                    data-tahun="{{ $item->tahun_ajaran }}">{{ $item->kelas }}</a>
-                                            @endif
-                                        @endforeach
-                                        <a class="btn btn-success btn-tambah" data-id="{{ $isi->id }}"><i
-                                                class="fas fa-plus"></i></a>
+
+                                        <a href="{{ route('nilai.create', ['id' => $isi->id, 'kelas' => $kelas->kelas, 'tahun' => $kelas->tahun_ajaran]) }}"
+                                            class="btn btn-info btn-kelas" data data-id="{{ $kelas->id }}"
+                                            data-tahun="{{ $kelas->tahun_ajaran }}">{{ $kelas->kelas }}</a>
+
+
                                     </td>
                                     @php
                                         $kompetensi = DB::table('kompetensi')
@@ -102,38 +95,6 @@
 
                 </div>
 
-                <div class="col-md-12 my-5">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td colspan="3">
-                                    <h6 class="font-weight-bold">Keterangan : </h6>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="height:40px">
-                                    <a class="btn btn-info w-100 h-100"></a>
-                                </td>
-                                <td>:</td>
-                                <td>Kelas</td>
-                            </tr>
-                            <tr>
-                                <td style="height:40px">
-                                    <a class="btn btn-warning w-100 h-100"></a>
-                                </td>
-                                <td>:</td>
-                                <td>Tinggal Kelas</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a class="btn btn-success"><i class="fas fa-plus"></i></a>
-                                </td>
-                                <td>:</td>
-                                <td>Tambah Data Tinggal Kelas</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
 
             </div>
 
@@ -251,15 +212,6 @@
             var expiryDate = new Date();
             expiryDate.setTime(expiryDate.getTime() + (60000)); // 1 hour
             document.cookie = `id_kompetensi=${id_kompetensi}; expires=${expiryDate}`;
-
-        });
-        $(document).on('click', '.btn-kelas-empty', function(e) {
-            e.preventDefault();
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Data Nilai Siswa Belum Bisa Diakses"
-            })
 
         });
     </script>

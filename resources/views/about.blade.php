@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
 
-@section('title', 'About Us')
+@section('title', 'Tentang Kami')
 
 @section('content_header')
-<h1 class="m-0 text-dark">About Us</h1>
+<h1 class="m-0 text-dark">Tentang Kami</h1>
 @stop
 
 @section('content')

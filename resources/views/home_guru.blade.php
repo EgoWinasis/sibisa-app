@@ -39,7 +39,7 @@
                 </div>
             @else
                 <div class="row">
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-4 col-6">
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
@@ -56,7 +56,7 @@
                     </div>
 
                     <!-- ./col -->
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-4 col-6">
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <!-- ./col -->
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-4 col-6">
                         <!-- small box -->
                         <div class="small-box bg-dark">
                             <div class="inner">
@@ -84,22 +84,6 @@
                                 <i class="fas fa-trophy text-white" style="opacity: 0.4"></i>
                             </div>
                             <a href="{{ route('nilai.index') }}" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-secondary">
-                            <div class="inner">
-                                <h3>{{ $file }}</h3>
-
-                                <p>Ijazah</p>
-                            </div>
-                            <div class="icon">
-                                <i class="fas fa-graduation-cap text-white" style="opacity: 0.4"></i>
-                            </div>
-                            <a href="{{ route('ijazah.index') }}" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -124,7 +108,7 @@
             Swal.fire({
                 icon: 'info',
                 title: 'Info',
-                html: 'Selamat Datang <strong>{{ $nama }}</strong>, <br>Saat ini Anda Bertugas Menjadi <strong>Admin</strong><br> untuk Tahun Ajaran <strong>{{ $tahunAjaran[0]->tahun_ajaran }}</strong>'
+                html: 'Selamat Datang <strong>{{ $nama }}</strong>, <br>Saat ini Anda Bertugas Menjadi Wali Kelas di <strong>Kelas {{$gurukelas}}</strong><br> untuk Tahun Ajaran <strong>{{ $tahunAjaran[0]->tahun_ajaran }}</strong>'
             });
         });
     </script>
