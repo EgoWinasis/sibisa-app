@@ -70,6 +70,8 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+<br>
+<br>
 @stop
 
 @section('js')
@@ -79,6 +81,5 @@
 </script>
 @endsection
 @section('footer')
-<div id="mycredit"><strong> Copyright &copy; <?php echo date('Y');?> Sistem Informasi Buku Induk Siswa - Kampus Mengajar
-    Angkatan 5 </div>
+@include('footer')
 @stop

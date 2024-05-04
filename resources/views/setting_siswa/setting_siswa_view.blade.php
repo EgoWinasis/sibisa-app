@@ -12,17 +12,18 @@
                 <div class="container-fluid">
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success">
-                            @if ( isset($message['deleted_count']))
-                            <p>Total data: {{ $message['total_students'] }}, Data siswa ditambahkan ke kelas:
-                                {{ $message['registered_count'] }}, Data siswa tidak ditambahkan ke kelas:
-                                {{ $message['not_registered_count'] }}, Data siswa dihapus dari Kelas: {{$message['deleted_count']}}</p>
+                            @if (isset($message['deleted_count']))
+                                <p>Total data: {{ $message['total_students'] }}, Data siswa ditambahkan ke kelas:
+                                    {{ $message['registered_count'] }}, Data siswa tidak ditambahkan ke kelas:
+                                    {{ $message['not_registered_count'] }}, Data siswa dihapus dari Kelas:
+                                    {{ $message['deleted_count'] }}</p>
                             @else
-                            {{ $message['success_message'] }}
-                            <p>Total data: {{ $message['total_students'] }}, Data siswa terdaftar:
-                                {{ $message['registered_count'] }}, Data siswa tidak terdaftar:
-                                {{ $message['not_registered_count'] }}</p>
+                                {{ $message['success_message'] }}
+                                <p>Total data: {{ $message['total_students'] }}, Data siswa terdaftar:
+                                    {{ $message['registered_count'] }}, Data siswa tidak terdaftar:
+                                    {{ $message['not_registered_count'] }}</p>
                             @endif
-                          
+
                         </div>
                     @endif
 
@@ -31,7 +32,16 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
+                    @if ($message = Session::get('success-manual'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
                     <div class="row my-3">
+                        <div class="col-md-6 text-left">
+                            <x-adminlte-button onclick="return addManual();" label="Manual" theme="primary"
+                                icon="fas fa-plus" />
+                        </div>
                     </div>
                     <div class="row">
 
@@ -77,7 +87,7 @@
                                                         @if ($i == 7)
                                                             <a class="btn btn-primary btn-set" onclick="add(this)"
                                                                 data-id="{{ $data->id }}"
-                                                                data-kelas="{{ $i }}">{{ "Lulus" }}</a>
+                                                                data-kelas="{{ $i }}">{{ 'Lulus' }}</a>
                                                         @else
                                                             <a class="btn btn-primary btn-set" onclick="add(this)"
                                                                 data-id="{{ $data->id }}"
@@ -128,13 +138,33 @@
                 </div><!-- /.container-fluid -->
             </main>
         </div><!-- /.container-fluid -->
+        <div class="modal fade" id="manualModal" tabindex="-1" role="dialog" aria-labelledby="manualModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="manualModalLabel">Tambah Manual</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Pilih salah satu opsi:</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="addOption(1)">Option 1</button>
+                        <button type="button" class="btn btn-primary" onclick="addOption(2)">Option 2</button>
+                        <button type="button" class="btn btn-primary" onclick="addOption(3)">Option 3</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div><!-- /.container-fluid -->
     <!-- /.content -->
 @stop
 @section('footer')
-    <div id="mycredit"><strong> Copyright &copy; <?php echo date('Y'); ?> Sistem Informasi Buku Induk Siswa - Kampus
-            Mengajar
-            Angkatan 5 </div>
+    @include('footer')
 @stop
 
 @section('plugins.Datatables', true)
@@ -143,6 +173,11 @@
 
 @section('js')
     <script type="text/javascript">
+
+    
+        function addManual() {
+            window.location = "{{ route('atursiswa.manual') }}";
+        }
         function add(element) {
             var dataId = element.getAttribute('data-id');
             var dataKelas = element.getAttribute('data-kelas');

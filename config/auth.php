@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'wali' => [
+            'driver' => 'session',
+            'provider' => 'users_wali',
+        ],
     ],
 
     /*
@@ -69,6 +73,10 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        'users_wali' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\ModelWaliMurid::class,
+        ],
     ],
 
     /*

@@ -36,8 +36,6 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Tahun Ajaran</th>
-                                        <th>Status Guru</th>
-                                        <th>Status Siswa</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -50,9 +48,7 @@
                                         <tr>
                                             <td>{{ $i++ }}</td>
                                             <td class="nama">{{ $data->tahun_ajaran }}</td>
-                                            <td>{{ 'a' }}</td>
-                                            <td>{{ 'A' }}</td>
-                                            <td>
+                                            <td class="text-center">
                                                 @if ($data->status == 0)
                                                     <span class="badge badge-secondary">Non-Aktif</span>
                                                 @else
@@ -60,7 +56,8 @@
                                                 @endif
                                             </td>
 
-                                            <td>
+                                            <td class="text-center">
+
                                                 @if ($data->status == 0)
                                                     <a class="btn btn-info btn-active"
                                                         data-id="{{ $data->id }}">Aktif</a>
@@ -83,9 +80,7 @@
     <!-- /.content -->
 @stop
 @section('footer')
-    <div id="mycredit"><strong> Copyright &copy; <?php echo date('Y'); ?> Sistem Informasi Buku Induk Siswa - Kampus
-            Mengajar
-            Angkatan 5 </div>
+    @include('footer')
 @stop
 
 @section('plugins.Datatables', true)

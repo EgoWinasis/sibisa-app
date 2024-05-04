@@ -44,10 +44,10 @@
                                             <td class="nama">{{ $data->tahun_ajaran }}</td>
                                             <td class="text-center">
                                                 @if (App\Models\ModelSettingGuru::where('id_tahun_ajaran', $data->id)->exists())
-                                                    <a class="btn btn-warning btn-set" onclick=" return add()"
+                                                    <a class="btn btn-warning btn-set" onclick=" return add(this)"
                                                         data-id="{{ $data->id }}">Ubah Guru</a>
                                                 @else
-                                                    <a class="btn btn-success btn-set" onclick=" return add()"
+                                                    <a class="btn btn-success btn-set" onclick=" return add(this)"
                                                         data-id="{{ $data->id }}">Pilih Guru</a>
                                                 @endif
                                                 @if (App\Models\ModelSettingGuru::where('id_tahun_ajaran', $data->id)->exists())
@@ -71,9 +71,7 @@
     <!-- /.content -->
 @stop
 @section('footer')
-    <div id="mycredit"><strong> Copyright &copy; <?php echo date('Y'); ?> Sistem Informasi Buku Induk Siswa - Kampus
-            Mengajar
-            Angkatan 5 </div>
+    @include('footer')
 @stop
 
 @section('plugins.Datatables', true)
@@ -82,8 +80,8 @@
 
 @section('js')
     <script type="text/javascript">
-        function add() {
-            var dataId = document.querySelector('.btn-set').getAttribute('data-id');
+        function add(button) {
+            var dataId = button.getAttribute('data-id');
             window.location = "{{ route('aturguru.create') }}?tahunAjaranId=" + dataId;
         }
         $(function() {

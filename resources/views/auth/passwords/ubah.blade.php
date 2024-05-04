@@ -56,6 +56,5 @@
     <!-- /.content -->
 @stop
 @section('footer')
-    <div id="mycredit" class="small"><strong> Copyright &copy;
-            <?php echo date('Y'); ?> Sistem Informasi Pengajuan Cuti Pegawai BLUD - Mufasirin </div>
+    @include('footer')
 @stop

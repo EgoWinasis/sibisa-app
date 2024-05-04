@@ -189,8 +189,7 @@
                                         <td class="text-center">1.</td>
                                         <td>Pendidikan Agama dan Budi Pekerti</td>
                                         <td>
-                                            <x-adminlte-input name="a2b1c1" value="{{ old('a2b1c1') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b1c1" value="{{ old('a2b1c1') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -198,8 +197,7 @@
                                                 value="{{ old('a2b1c2') }}"></x-adminlte-input>
                                         </td>
                                         <td>
-                                            <x-adminlte-input name="a2b1c3" value="{{ old('a2b1c3') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b1c3" value="{{ old('a2b1c3') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -211,8 +209,7 @@
                                         <td class="text-center">2.</td>
                                         <td>PPKn / PMP</td>
                                         <td>
-                                            <x-adminlte-input name="a2b2c1" value="{{ old('a2b2c1') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b2c1" value="{{ old('a2b2c1') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -220,8 +217,7 @@
                                                 value="{{ old('a2b2c2') }}"></x-adminlte-input>
                                         </td>
                                         <td>
-                                            <x-adminlte-input name="a2b2c3" value="{{ old('a2b2c3') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b2c3" value="{{ old('a2b2c3') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -233,8 +229,7 @@
                                         <td class="text-center">3.</td>
                                         <td>Bahasa Indonesia</td>
                                         <td>
-                                            <x-adminlte-input name="a2b3c1" value="{{ old('a2b3c1') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b3c1" value="{{ old('a2b3c1') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -242,8 +237,7 @@
                                                 value="{{ old('a2b3c2') }}"></x-adminlte-input>
                                         </td>
                                         <td>
-                                            <x-adminlte-input name="a2b3c3" value="{{ old('a2b3c3') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b3c3" value="{{ old('a2b3c3') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -255,8 +249,7 @@
                                         <td class="text-center">4.</td>
                                         <td>Matematika</td>
                                         <td>
-                                            <x-adminlte-input name="a2b4c1" value="{{ old('a2b4c1') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b4c1" value="{{ old('a2b4c1') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -264,8 +257,7 @@
                                                 value="{{ old('a2b4c2') }}"></x-adminlte-input>
                                         </td>
                                         <td>
-                                            <x-adminlte-input name="a2b4c3" value="{{ old('a2b4c3') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b4c3" value="{{ old('a2b4c3') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -277,8 +269,7 @@
                                         <td class="text-center">5.</td>
                                         <td>IPA & IPS (IPAS)</td>
                                         <td>
-                                            <x-adminlte-input name="a2b5c1" value="{{ old('a2b5c1') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b5c1" value="{{ old('a2b5c1') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -286,8 +277,7 @@
                                                 value="{{ old('a2b5c2') }}"></x-adminlte-input>
                                         </td>
                                         <td>
-                                            <x-adminlte-input name="a2b5c3" value="{{ old('a2b5c3') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b5c3" value="{{ old('a2b5c3') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -299,8 +289,7 @@
                                         <td class="text-center">6.</td>
                                         <td>Bahasa Inggris</td>
                                         <td>
-                                            <x-adminlte-input name="a2b6c1" value="{{ old('a2b6c1') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b6c1" value="{{ old('a2b6c1') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -308,8 +297,7 @@
                                                 value="{{ old('a2b6c2') }}"></x-adminlte-input>
                                         </td>
                                         <td>
-                                            <x-adminlte-input name="a2b6c3" value="{{ old('a2b6c3') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b6c3" value="{{ old('a2b6c3') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -321,8 +309,7 @@
                                         <td class="text-center">7.</td>
                                         <td>PJOK</td>
                                         <td>
-                                            <x-adminlte-input name="a2b7c1" value="{{ old('a2b7c1') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b7c1" value="{{ old('a2b7c1') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -330,8 +317,7 @@
                                                 value="{{ old('a2b7c2') }}"></x-adminlte-input>
                                         </td>
                                         <td>
-                                            <x-adminlte-input name="a2b7c3" value="{{ old('a2b7c3') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b7c3" value="{{ old('a2b7c3') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -343,8 +329,7 @@
                                         <td class="text-center">8.</td>
                                         <td>Teknologi Informasi dan Komunikasi</td>
                                         <td>
-                                            <x-adminlte-input name="a2b8c1" value="{{ old('a2b8c1') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b8c1" value="{{ old('a2b8c1') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -352,8 +337,7 @@
                                                 value="{{ old('a2b8c2') }}"></x-adminlte-input>
                                         </td>
                                         <td>
-                                            <x-adminlte-input name="a2b8c3" value="{{ old('a2b8c3') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b8c3" value="{{ old('a2b8c3') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -381,8 +365,7 @@
                                         <td></td>
                                         <td>a.Seni Rupa</td>
                                         <td>
-                                            <x-adminlte-input name="a2b9c1" value="{{ old('a2b9c1') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b9c1" value="{{ old('a2b9c1') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -390,8 +373,7 @@
                                                 value="{{ old('a2b9c2') }}"></x-adminlte-input>
                                         </td>
                                         <td>
-                                            <x-adminlte-input name="a2b9c3" value="{{ old('a2b9c3') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b9c3" value="{{ old('a2b9c3') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -403,8 +385,7 @@
                                         <td></td>
                                         <td>b.Seni Musik</td>
                                         <td>
-                                            <x-adminlte-input name="a2b10c1" value="{{ old('a2b10c1') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b10c1" value="{{ old('a2b10c1') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -412,8 +393,7 @@
                                                 value="{{ old('a2b10c2') }}"></x-adminlte-input>
                                         </td>
                                         <td>
-                                            <x-adminlte-input name="a2b10c3" value="{{ old('a2b10c3') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b10c3" value="{{ old('a2b10c3') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -425,8 +405,7 @@
                                         <td></td>
                                         <td>c.Seni Tari</td>
                                         <td>
-                                            <x-adminlte-input name="a2b11c1" value="{{ old('a2b11c1') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b11c1" value="{{ old('a2b11c1') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -434,8 +413,7 @@
                                                 value="{{ old('a2b11c2') }}"></x-adminlte-input>
                                         </td>
                                         <td>
-                                            <x-adminlte-input name="a2b11c3" value="{{ old('a2b11c3') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b11c3" value="{{ old('a2b11c3') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -447,8 +425,7 @@
                                         <td class="text-center">10.</td>
                                         <td>Bimbingan dan Konseling</td>
                                         <td>
-                                            <x-adminlte-input name="a2b12c1" value="{{ old('a2b12c1') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b12c1" value="{{ old('a2b12c1') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -456,8 +433,7 @@
                                                 value="{{ old('a2b12c2') }}"></x-adminlte-input>
                                         </td>
                                         <td>
-                                            <x-adminlte-input name="a2b12c3" value="{{ old('a2b12c3') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b12c3" value="{{ old('a2b12c3') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -485,8 +461,7 @@
                                         <td></td>
                                         <td>a. Bahasa Jawa</td>
                                         <td>
-                                            <x-adminlte-input name="a2b13c1" value="{{ old('a2b13c1') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b13c1" value="{{ old('a2b13c1') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -494,8 +469,7 @@
                                                 value="{{ old('a2b13c2') }}"></x-adminlte-input>
                                         </td>
                                         <td>
-                                            <x-adminlte-input name="a2b13c3" value="{{ old('a2b13c3') }}" type="number"
-                                                min="1">
+                                            <x-adminlte-input name="a2b13c3" value="{{ old('a2b13c3') }}" class="numeric-input">
                                             </x-adminlte-input>
                                         </td>
                                         <td>
@@ -531,7 +505,7 @@
                                         <td>Praja Muda Karana</td>
                                         <td>
                                             <x-adminlte-input name="a3b1c1"
-                                                value="{{ old('a3b1c1') }}"></x-adminlte-input>
+                                                value="{{ old('a3b1c1') }}" class="numeric-input"></x-adminlte-input>
                                         </td>
                                         <td>
                                             <x-adminlte-input name="a3b1c2"
@@ -543,7 +517,7 @@
                                         <td>Komputer</td>
                                         <td>
                                             <x-adminlte-input name="a3b2c1"
-                                                value="{{ old('a3b2c1') }}"></x-adminlte-input>
+                                                value="{{ old('a3b2c1') }}" class="numeric-input"></x-adminlte-input>
                                         </td>
                                         <td>
                                             <x-adminlte-input name="a3b2c2"
@@ -630,7 +604,7 @@
                                         <td>Sakit</td>
                                         <td>
                                             <x-adminlte-input name="sakit" value="{{ old('sakit') }}"
-                                                placeholder="hari" type="number" min="1">
+                                                placeholder="hari" class="numeric-input-kehadiran">
                                             </x-adminlte-input>
                                         </td>
                                     </tr>
@@ -639,7 +613,7 @@
                                         <td>Izin</td>
                                         <td>
                                             <x-adminlte-input name="izin" value="{{ old('izin') }}"
-                                                placeholder="hari" type="number" min="1"></x-adminlte-input>
+                                                placeholder="hari" class="numeric-input-kehadiran"></x-adminlte-input>
                                         </td>
                                     </tr>
                                     <tr>
@@ -647,8 +621,7 @@
                                         <td>Tanpa Keterangan</td>
                                         <td>
                                             <x-adminlte-input name="tanpa_keterangan"
-                                                value="{{ old('tanpa_keterangan') }}" placeholder="hari" type="number"
-                                                min="1"></x-adminlte-input>
+                                                value="{{ old('tanpa_keterangan') }}" placeholder="hari" class="numeric-input-kehadiran"></x-adminlte-input>
                                         </td>
                                     </tr>
 
@@ -712,7 +685,7 @@
                                 placeholder="NIP" fgroup-class="col-md-6" type="number" min="1" />
                             {{-- uploud barcode --}}
                             <x-adminlte-input-file name="barcode_kepsek" value="{{ old('barcode_kepsek') }}"
-                                label="Uploud QR Code" fgroup-class="col-md-12" placeholder="Choose a file..." />
+                                label="Uploud QR Code" fgroup-class="col-md-12" placeholder="Choose file jpg or png (max 2MB)" />
                             {{-- Guru --}}
                             <x-adminlte-input name="wali_kelas" value="{{ old('wali_kelas') }}" label="Wali Kelas"
                                 placeholder="Wali Kelas" fgroup-class="col-md-6" />
@@ -721,7 +694,7 @@
                                 placeholder="NIP" fgroup-class="col-md-6" type="number" min="1" />
                             {{-- uploud --}}
                             <x-adminlte-input-file name="barcode_wali_kelas" value="{{ old('barcode_wali_kelas') }}"
-                                label="Uploud QR Code" fgroup-class="col-md-12" placeholder="Choose a file..." />
+                                label="Uploud QR Code" fgroup-class="col-md-12" placeholder="Choose file jpg or png (max 2MB)" />
                             {{-- tanggal print --}}
                             @php
                                 $config = ['format' => 'DD-MM-YYYY'];
@@ -770,9 +743,7 @@
 
 {{-- footer --}}
 @section('footer')
-    <div class="mt-2" id="mycredit"><strong> Copyright &copy; <?php echo date('Y'); ?> Sistem Informasi Buku Induk Siswa -
-            Kampus Mengajar
-            Angkatan 5 </div>
+   @include('footer')
 @stop
 
 @section('plugins.TempusDominusBs4', true)
@@ -785,5 +756,78 @@
         function backguru() {
             window.location = "{{ route('nilaiaktif.index') }}";
         }
+
+
+
+         // numeric check 
+
+         document.addEventListener('DOMContentLoaded', function() {
+            var numericInputs = document.querySelectorAll('.numeric-input');
+
+            numericInputs.forEach(function(input) {
+                input.addEventListener('keydown', function(event) {
+                    // Allow: backspace, delete, tab, escape, enter, and .
+                    if ([46, 8, 9, 27, 13, 110, 190].indexOf(event.keyCode) !== -1 ||
+                        // Allow: Ctrl+A
+                        (event.keyCode === 65 && event.ctrlKey === true) ||
+                        // Allow: home, end, left, right
+                        (event.keyCode >= 35 && event.keyCode <= 39)) {
+                        // Let it happen, don't do anything
+                        return;
+                    }
+
+                    // Ensure that it is a number and stop the keypress
+                    if ((event.shiftKey || (event.keyCode < 48 || event.keyCode > 57)) &&
+                        (event.keyCode < 96 || event.keyCode > 105)) {
+                        event.preventDefault();
+                    }
+
+                    // Limit input to values between 0 and 100
+                    var value = parseInt(input.value + event.key);
+                    if (value < 0 || value > 100) {
+                        event.preventDefault();
+                    }
+                    if (String(input.value).startsWith('0') && value !== '0' && input.value.length >
+                        0) {
+                        event.preventDefault();
+                    }
+                });
+            });
+
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            var numericInputsKehadiran = document.querySelectorAll('.numeric-input-kehadiran');
+
+            numericInputsKehadiran.forEach(function(input) {
+                input.addEventListener('keydown', function(event) {
+                    // Allow: backspace, delete, tab, escape, enter, and .
+                    if ([46, 8, 9, 27, 13, 110, 190].indexOf(event.keyCode) !== -1 ||
+                        // Allow: Ctrl+A
+                        (event.keyCode === 65 && event.ctrlKey === true) ||
+                        // Allow: home, end, left, right
+                        (event.keyCode >= 35 && event.keyCode <= 39)) {
+                        // Let it happen, don't do anything
+                        return;
+                    }
+
+                    // Ensure that it is a number and stop the keypress
+                    if ((event.shiftKey || (event.keyCode < 48 || event.keyCode > 57)) &&
+                        (event.keyCode < 96 || event.keyCode > 105)) {
+                        event.preventDefault();
+                    }
+
+                    // Limit input to values between 0 and 100
+                    var value = parseInt(input.value + event.key);
+                    if (value < 0 || value > 999) {
+                        event.preventDefault();
+                    }
+                    if (String(input.value).startsWith('0') && value !== '0' && input.value.length >
+                        0) {
+                        event.preventDefault();
+                    }
+                });
+            });
+
+        });
     </script>
 @stop

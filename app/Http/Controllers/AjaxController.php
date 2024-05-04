@@ -13,7 +13,7 @@ class AjaxController extends Controller
     {
         $tahun_ajaran = $_GET['tahun_ajaran'];
         $kelas = ModelKelas::where('tahun_ajaran', $tahun_ajaran)->groupBy('kelas')->get();
-     
+
         return $kelas;
     }
     public function getSiswa()
@@ -29,15 +29,16 @@ class AjaxController extends Controller
         return $data;
     }
 
-    public function getNilai($id, $kelas, $siswa){
+    public function getNilai($id, $kelas, $siswa)
+    {
 
         // $tahun = $_COOKIE['tahun'];
-        
+
         // if ($tahun == "") {
         //     $tahun = null;
         // }
 
-        
+
         // $nilaiExist = Ketidakhadiran::where('siswa', $siswa)
         // ->where('kelas', $kelas)
         // ->where('tahun_ajaran', $tahun)
@@ -48,7 +49,7 @@ class AjaxController extends Controller
         //                         ->where('kelas',$kelas)
         //                         ->where('tahun_ajaran', $tahun)
         //                         ->first();
-            
+
         //     return redirect()->route('nilai.edit',$getKetidakhadiran->id);
         // } else {
         //     return redirect()->route('nilai.create')
@@ -56,17 +57,27 @@ class AjaxController extends Controller
         //     ->with('siswa', $siswa)
         //     ;
         // }
-        
-    }
-   
 
-    public function setKelas($id,$kelas){
+    }
+
+
+    public function setKelas($id, $kelas)
+    {
         $kelas = [
             'id_siswa' => $id,
             'kelas' => $kelas,
             'tinggal_kelas' => 'true',
             'tahun_ajaran' => NULL,
-            ];
+        ];
         ModelKelas::create($kelas);
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $student = Students::findOrFail($id);
+        $student->status = $request->input('status');
+        $student->save();
+
+        return response()->json(['message' => 'Status updated successfully']);
     }
 }

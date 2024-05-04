@@ -15,6 +15,9 @@ use App\Models\ModelMeninggalkanSekolah;
 use App\Models\Students;
 use App\Models\ModelOrangTua;
 use App\Models\ModelProgressSiswa;
+use App\Models\ModelSettingDataSiswa;
+use App\Models\ModelSettingSiswa;
+use App\Models\ModelTahunAjaran;
 use App\Models\ModelTandaTangan;
 use App\Models\PelajarPancasila;
 use App\Models\Pengetahuan;
@@ -40,13 +43,24 @@ class Siswa extends Controller
         if (auth()->check() && auth()->user()->role !== 'admin') {
             abort(403, 'Unauthorized action.');
         } else {
+            $tahunAjaran = DB::table('tahun_ajaran')
+                ->select('tahun_ajaran', 'status')
+                ->orderBy('tahun_ajaran')
+                ->get();
+            $tahunAjaranAktif = DB::table('tahun_ajaran')
+                ->select('tahun_ajaran')
+                ->where('status', '=', 1)
+                ->first();
+            $tahunAjaranAktif = $tahunAjaranAktif->tahun_ajaran;
+
             $students = DB::table('students')
-                ->select('id', 'nis', 'nama_lengkap', 'jen_kel', 'foto_siswa')
+                ->select('id', 'nis', 'nama_lengkap', 'jen_kel', 'status')
+                ->where('angkatan', '=', $tahunAjaranAktif)
                 ->orderBy('nis')
                 ->get();
 
             return view('siswa.siswa_view')
-                ->with(compact('students'));
+                ->with(compact('students', 'tahunAjaran', 'tahunAjaranAktif'));
         }
     }
 
@@ -61,7 +75,8 @@ class Siswa extends Controller
         if (auth()->check() && auth()->user()->role !== 'admin') {
             abort(403, 'Unauthorized action.');
         } else {
-            return view('siswa.siswa_create_view');
+            $tahunAjaran = ModelTahunAjaran::where('status', 1)->first();
+            return view('siswa.siswa_create_view')->with(compact('tahunAjaran'));
         }
     }
 
@@ -77,6 +92,7 @@ class Siswa extends Controller
             abort(403, 'Unauthorized action.');
         } else {
             $validatedData = $request->validate([
+                'angkatan' => ['required', 'string', 'max:50'],
                 'nis' => ['required', 'min:4', 'max:4', 'unique:students,nis'],
                 'nisn' => ['required', 'min:10', 'max:10', 'unique:students,nisn'],
                 'nik' => ['string', 'max:16', 'nullable'],
@@ -187,11 +203,12 @@ class Siswa extends Controller
             }
 
             $siswa = [
+                'angkatan' => $validatedData['angkatan'],
                 'nis' => $validatedData['nis'],
                 'nisn' => $validatedData['nisn'],
                 'nik' => $validatedData['nik'],
                 'no_kk' => $validatedData['no_kk'],
-                'nama_lengkap' => $validatedData['nama_lengkap'],
+                'nama_lengkap' => strtoupper($validatedData['nama_lengkap']),
                 'nama_panggilan' => $validatedData['nama_panggilan'],
                 'jen_kel' => $validatedData['jen_kel'],
                 'tempat_lahir' => $validatedData['tempat_lahir'],
@@ -352,14 +369,17 @@ class Siswa extends Controller
         $meninggalkanSekolah = ModelMeninggalkanSekolah::where('siswa_id', $student['id'])->first();
         $lain = ModelLainLain::where('siswa_id', $student['id'])->first();
 
-        return view('siswa.siswa_detail_view')
-            ->with(compact('student'))
-            ->with(compact('orangTua'))
-            ->with(compact('progresSiswa'))
-            ->with(compact('kesehatanJasmani'))
-            ->with(compact('beasiswa'))
-            ->with(compact('meninggalkanSekolah'))
-            ->with(compact('lain'));
+        $tahunAjaran = ModelTahunAjaran::where('status', 1)->first();
+        $kelas = ModelSettingDataSiswa::join('setting_siswa', 'setting_data_siswa.id_setting_siswa', '=', 'setting_siswa.id')
+            ->where('setting_siswa.id_tahun_ajaran', $tahunAjaran->id)
+            ->where('setting_data_siswa.id_student', $student->id)
+            ->pluck('setting_siswa.kelas');
+
+
+
+
+
+        return view('siswa.siswa_detail_view')->with(compact('student', 'orangTua', 'progresSiswa', 'kesehatanJasmani', 'beasiswa', 'meninggalkanSekolah', 'lain', 'kelas'));
     }
 
     /**
@@ -630,7 +650,7 @@ class Siswa extends Controller
                 'nisn' => $validatedData['nisn'],
                 'nik' => $validatedData['nik'],
                 'no_kk' => $validatedData['no_kk'],
-                'nama_lengkap' => $validatedData['nama_lengkap'],
+                'nama_lengkap' => strtoupper($validatedData['nama_lengkap']),
                 'nama_panggilan' => $validatedData['nama_panggilan'],
                 'jen_kel' => $validatedData['jen_kel'],
                 'tempat_lahir' => $validatedData['tempat_lahir'],
@@ -776,52 +796,23 @@ class Siswa extends Controller
     {
         if (auth()->check() && auth()->user()->role !== 'admin') {
             abort(403, 'Unauthorized action.');
-        } else {
-            $siswa = Students::find($id);
-            if ($siswa->foto_siswa != 'user_default_profil.png') {
-                Storage::delete('public/images/foto-siswa/' . $siswa['foto_siswa']);
-            }
-            Students::where('id', $id)->delete();
-            ModelOrangTua::where('siswa_id', $id)->delete();
-            ModelProgressSiswa::where('siswa_id', $id)->delete();
-            ModelKesehatan::where('siswa_id', $id)->delete();
-            ModelBeasiswa::where('siswa_id', $id)->delete();
-            ModelMeninggalkanSekolah::where('siswa_id', $id)->delete();
-            ModelLainLain::where('siswa_id', $id)->delete();
-
-            // delete kelas
-            ModelKelas::where('id_siswa', $id)->delete();
-            // delete nilai
-            PelajarPancasila::where('siswa', $siswa->nama_lengkap)->delete();
-            Pengetahuan::where('siswa', $siswa->nama_lengkap)->delete();
-            Ekstrakulikuler::where('siswa', $siswa->nama_lengkap)->delete();
-            Prestasi::where('siswa', $siswa->nama_lengkap)->delete();
-            Ketidakhadiran::where('siswa', $siswa->nama_lengkap)->delete();
-            ModelKenaikan::where('siswa', $siswa->nama_lengkap)->delete();
-            $ttd =   ModelTandaTangan::where('siswa', $siswa->nama_lengkap)->first();
-            if ($ttd->barcode_kepsek != null) {
-                Storage::delete('public/images/barcode/' . $ttd->barcode_kepsek);
-            }
-            if ($ttd->barcode_wali_kelas != null) {
-                Storage::delete('public/images/barcode/' . $ttd->barcode_wali_kelas);
-            }
-            ModelTandaTangan::where('siswa', $siswa->nama_lengkap)->delete();
-
-            // delete kompetensi
-            ModelKompetensi::where('id_siswa', $id)->delete();
-
-            // delete ijazah
-            $file = ModelIjazah::where('id_siswa', $id)->first();
-            if ($file->ijazah != null) {
-                Storage::delete('public/pdf/ijazah/' . $file->ijazah);
-            }
-            if ($file->skl != null) {
-                Storage::delete('public/pdf/skl/' . $file->skl);
-            }
-            if ($file->skhun != null) {
-                Storage::delete('public/pdf/skhun/' . $file->skhun);
-            }
-            ModelIjazah::where('id_siswa', $id)->delete();
         }
+    }
+
+
+    public function dataAngkatan(Request $request)
+    {
+        $tahunAjaranAktif = $request->tahunAjaran;
+        $tahunAjaranAktif = str_replace('-', '/', $tahunAjaranAktif);
+        $students = Students::where('angkatan', $tahunAjaranAktif)->get();
+
+
+        $tahunAjaran = DB::table('tahun_ajaran')
+            ->select('tahun_ajaran', 'status')
+            ->orderBy('tahun_ajaran')
+            ->get();
+
+        return view('siswa.siswa_view')
+            ->with(compact('students', 'tahunAjaran', 'tahunAjaranAktif'));
     }
 }

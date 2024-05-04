@@ -12,7 +12,10 @@
 
 }
 
-
+td{
+  text-align:justify;
+  padding: 2px;
+}
 .rcorners2 {
     border-radius: 25px;
     border: 2px solid black;
@@ -74,15 +77,42 @@ tr.highlight td{
 .w-5{
   width: 5%;
 }
+.w-7{
+  width: 7%;
+}
+.w-8{
+  width: 8%;
+}
 .w-10{
   width: 10%;
+}
+.w-11{
+  width: 11%;
 }
 .w-15{
   width: 15%;
 }
+.w-19{
+  width: 19%;
+}
+.w-23{
+  width: 23%;
+}
+.w-25{
+  width: 25%;
+}
 .w-30{
   width: 30%;
 }
+.w-35{
+  width: 35%;
+}
+.w-40{
+  width: 40%;
+}
 .w-50{
   width: 50%;
+}
+.w-60{
+  width: 60%;
 }

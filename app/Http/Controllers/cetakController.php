@@ -13,6 +13,7 @@ use App\Models\ModelLainLain;
 use App\Models\ModelMeninggalkanSekolah;
 use App\Models\ModelOrangTua;
 use App\Models\ModelProgressSiswa;
+use App\Models\ModelSekolah;
 use App\Models\ModelSettingGuru;
 use App\Models\ModelSettingSiswa;
 use App\Models\ModelTahunAjaran;
@@ -22,8 +23,6 @@ use App\Models\Pengetahuan;
 use App\Models\Prestasi;
 use App\Models\Students;
 use Carbon\Carbon;
-use GuzzleHttp\Psr7\Response;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use \Mpdf\Mpdf as PDF;
@@ -44,15 +43,23 @@ class cetakController extends Controller
     {
 
         if (auth()->user()->role == 'admin') {
+
+            $tahunAjaran = DB::table('tahun_ajaran')
+                ->select('tahun_ajaran', 'status')
+                ->orderBy('tahun_ajaran')
+                ->get();
+
+
             $siswa = DB::table('students')
                 ->select('id', 'nis', 'nama_lengkap')
                 ->orderBy('nis')
                 ->get();
             return view('cetak.cetak_view')
-                ->with(compact('siswa'));
+                ->with(compact('siswa', 'tahunAjaran'));
         } else {
 
             $tahunAjaran = ModelTahunAjaran::where('status', 1)->get();
+            $tahunAjaranAktif = ModelTahunAjaran::where('status', 1)->first();
             $guru = ModelSettingGuru::where('id_tahun_ajaran', $tahunAjaran->first()->id)->get();
             $user_id = Auth::id();
             $found_in_columns = 0;
@@ -107,8 +114,14 @@ class cetakController extends Controller
                     ->from('setting_data_siswa')
                     ->where('id_setting_siswa', $settingSiswa->id);
             })->get();
+
+            // get tahun ajaran
+            $tahunAjaran = DB::table('tahun_ajaran')
+                ->select('tahun_ajaran', 'status')
+                ->orderBy('tahun_ajaran')
+                ->get();
             return view('cetak.cetak_guru_view')
-                ->with(compact('siswa','gurukelas'));
+                ->with(compact('siswa', 'gurukelas', 'tahunAjaran', 'tahunAjaranAktif'));
         }
     }
 
@@ -116,8 +129,18 @@ class cetakController extends Controller
     public function cover()
     {
 
+        $sekolah = ModelSekolah::first();
+
+        if (empty($sekolah)) {
+            return redirect()->route('cetak')->with('error', 'Data Profile Sekolah belum diisi');
+        }
+
+
         $tahunCetak = $_COOKIE['tahun_cetak'];
         $documentFileName = "cover.pdf";
+
+
+
 
         // Create the mPDF document
         $document = new PDF([
@@ -194,72 +217,71 @@ class cetakController extends Controller
                 <table width='100%' class='table-border-out'>
                     <tbody>
                         <tr>
-                        <td  class=' text-left'>
-                            <h4>NAMA SEKOLAH</h4>
-                        </td> 
-                        <td  class=' text-left'>
-                            <h4>:</h4>
-                        </td> 
-                        <td  class=' text-left'>
-                            <h4>SDN GETASKEREP 01</h4>
-                        </td> 
+                            <td class='text-left'>
+                                <h4>NAMA SEKOLAH</h4>
+                            </td>
+                            <td class='text-left'>
+                                <h4>:</h4>
+                            </td>
+                            <td class='text-left'>
+                                <h4>$sekolah->nama</h4>
+                            </td>
                         </tr>
                         <tr>
-                        <td  class=' text-left'>
-                            <h4>ALAMAT SEKOLAH</h4>
-                        </td> 
-                        <td  class=' text-left'>
-                            <h4>:</h4>
-                        </td> 
-                        <td  class=' text-left'>
-                            <h4>JALAN PROJOSUMARTO 1</h4>
-                        </td> 
+                            <td class='text-left'>
+                                <h4>ALAMAT SEKOLAH</h4>
+                            </td>
+                            <td class='text-left'>
+                                <h4>:</h4>
+                            </td>
+                            <td class='text-left'>
+                                <h4>$sekolah->alamat</h4>
+                            </td>
                         </tr>
                         <tr>
-                        <td  class=' text-left'>
-                            <h4>DESA / KELURAHAN</h4>
-                        </td> 
-                        <td  class=' text-left'>
-                            <h4>:</h4>
-                        </td> 
-                        <td  class=' text-left'>
-                            <h4>DESA GETASKEREP</h4>
-                        </td> 
+                            <td class='text-left'>
+                                <h4>DESA / KELURAHAN</h4>
+                            </td>
+                            <td class='text-left'>
+                                <h4>:</h4>
+                            </td>
+                            <td class='text-left'>
+                                <h4>$sekolah->desa</h4>
+                            </td>
                         </tr>
                         <tr>
-                        <td  class=' text-left'>
-                            <h4>KECAMATAN</h4>
-                        </td> 
-                        <td  class=' text-left'>
-                            <h4>:</h4>
-                        </td> 
-                        <td  class=' text-left'>
-                            <h4>TALANG</h4>
-                        </td> 
+                            <td class='text-left'>
+                                <h4>KECAMATAN</h4>
+                            </td>
+                            <td class='text-left'>
+                                <h4>:</h4>
+                            </td>
+                            <td class='text-left'>
+                                <h4>$sekolah->kecamatan</h4>
+                            </td>
                         </tr>
                         <tr>
-                        <td  class=' text-left'>
-                            <h4>KABUPATEN / KOTA</h4>
-                        </td> 
-                        <td  class=' text-left'>
-                            <h4>:</h4>
-                        </td> 
-                        <td  class=' text-left'>
-                            <h4>KABUPATEN TEGAL</h4>
-                        </td> 
+                            <td class='text-left'>
+                                <h4>KABUPATEN / KOTA</h4>
+                            </td>
+                            <td class='text-left'>
+                                <h4>:</h4>
+                            </td>
+                            <td class='text-left'>
+                                <h4>$sekolah->kota</h4>
+                            </td>
                         </tr>
                         <tr>
-                        <td  class=' text-left'>
-                            <h4>PROVINSI</h4>
-                        </td> 
-                        <td  class=' text-left'>
-                            <h4>:</h4>
-                        </td> 
-                        <td  class=' text-left'>
-                            <h4>JAWA TENGAH</h4>
-                        </td> 
+                            <td class='text-left'>
+                                <h4>PROVINSI</h4>
+                            </td>
+                            <td class='text-left'>
+                                <h4>:</h4>
+                            </td>
+                            <td class='text-left'>
+                                <h4>$sekolah->provinsi</h4>
+                            </td>
                         </tr>
-                        
                     </tbody>
                 </table>
             </div>
@@ -350,7 +372,7 @@ class cetakController extends Controller
             'margin_top' => '10',
             'margin_bottom' => '10',
             'margin_footer' => '2',
-            'default_font_size' => 12,
+            'default_font_size' => 10,
             'default_font' => 'sans-serif'
         ]);
 
@@ -1115,7 +1137,7 @@ class cetakController extends Controller
             'margin_top' => '10',
             'margin_bottom' => '10',
             'margin_footer' => '2',
-            'default_font_size' => 12,
+            'default_font_size' => 10,
             'default_font' => 'sans-serif'
         ]);
 
@@ -1159,9 +1181,9 @@ class cetakController extends Controller
             <table width='100%' class='table-border'>
                 <tbody >
                     <tr>
-                        <th width='40%' class='table-border'>DIMENSI</th>
+                        <th width='30%' class='table-border'>DIMENSI</th>
                         <th width='30%' class='table-border'>ELEMEN</th>
-                        <th width='30%' class='table-border'>SUB ELEMEN</th>
+                        <th width='40%' class='table-border'>SUB ELEMEN</th>
                     </tr>
                     <tr>
                         <td class='table-border'>1. Beriman, bertakwa kepada Tuhan yang Maha Esa dan berakhlak mulia</td>
@@ -1203,9 +1225,9 @@ class cetakController extends Controller
                 <tbody >
                     <tr>
                         <th rowspan='2' class='text-center table-border' width='5%'>No</th>
-                        <th rowspan='2' class='text-center table-border' width='25%'>Mata Pelajaran</th>
-                        <th colspan='2' class='text-center table-border' width='35%'>Semester 1</th>
-                        <th colspan='2' class='text-center table-border' width='35%'>Semester 2</th>
+                        <th rowspan='2' class='text-center table-border' width='19%'>Mata Pelajaran</th>
+                        <th colspan='2' class='text-center table-border' width='38%'>Semester 1</th>
+                        <th colspan='2' class='text-center table-border' width='38%'>Semester 2</th>
                     </tr>
                     <tr class='text-center'>
                         <th width='10%' class='table-border'>Nilai Akhir</th>
@@ -1679,7 +1701,7 @@ class cetakController extends Controller
             'margin_top' => '10',
             'margin_bottom' => '10',
             'margin_footer' => '2',
-            'default_font_size' => 12,
+            'default_font_size' => 10,
             'default_font' => 'sans-serif'
         ]);
 
@@ -1735,10 +1757,10 @@ class cetakController extends Controller
         <table width='100%' class='table-border'>
         <thead>
             <tr>
-                <th class='w-30 text-center table-border'>Mata Pelajaran</th>
-                <th class='w-5 text-center table-border'>Kelas</th>
-                <th class='w-15 text-center table-border'>Semester</th>
-                <th class='w-50 text-center table-border'>Capaian Kompetensi</th>
+                <th class='w-19 text-center table-border'>Mata Pelajaran</th>
+                <th class='w-8 text-center table-border'>Kelas</th>
+                <th class='w-11 text-center table-border'>Semester</th>
+                <th class='w-60 text-center table-border'>Capaian Kompetensi</th>
             </tr>
         </thead>
         <tbody>

@@ -107,7 +107,7 @@ return [
     */
 
     'preloader' => [
-        'enabled' => true,
+        'enabled' => false,
         'img' => [
             'path' => 'storage/images/cirlce.png',
             'alt' => 'SIBISA Preloader Image',
@@ -295,6 +295,8 @@ return [
             'text' => ' Beranda',
             'url'  => '/home',
             'icon' => 'fas fa-home',
+            'can'  => ['isAdmin','isGuru']
+
         ],
         [
             'type'         => 'fullscreen-widget',
@@ -318,11 +320,23 @@ return [
                 [
                     'text' => 'Siswa',
                     'url'  => '/siswa',
+
+                ],
+                [
+                    'text' => 'Guru',
+                    'url'  => '/guru',
                 ],
             ],
             'can'  => 'isAdmin'
         ],
 
+        [
+            'text' => 'Presensi Siswa',
+            'icon' => 'fas fa-calendar-check',
+            'url'  => '/presensi',
+            'can'  => ['isAdmin','isGuru']
+
+        ],
         [
             'text' => 'Data Kelas',
             'icon' => 'fas fa-school',
@@ -360,6 +374,10 @@ return [
                     'text' => 'Siswa',
                     'url'  => '/atursiswa',
                 ],
+                [
+                    'text' => 'Profil Sekolah',
+                    'url'  => '/sekolah',
+                ],
             ],
             'can'  => 'isAdmin'
 
@@ -381,25 +399,47 @@ return [
             'text' => 'Cetak',
             'icon' => 'fas fa-print',
             'url'  => '/cetak',
+            'can'  => ['isAdmin','isGuru']
 
         ],
-        ['header' => 'AKUN'],
         [
-            'text' => 'Profile',
+            'text' => 'Akun',
             'icon' => 'fas fa-user',
-            'url'  => '/profile'
+            'submenu' => [
+                [
+                    'text' => 'Profile',
+                    'url'  => '/profile',
+                    'can'  => ['isAdmin','isGuru']
+
+                ],
+                [
+                    'text' => 'Ubah Kata Sandi',
+                    'url'  => 'password',
+                    'can'  => ['isAdmin','isGuru']
+
+                ],
+                [
+                    'text' => 'Kelola Akun',
+                    'url'  => '/users',
+                    'can'  => 'isAdmin'
+                ],
+                [
+                    'text' => 'Akun Wali Murid',
+                    'url'  => '/users-wali',
+                    'can'  => 'isAdmin'
+                ],
+                [
+                    'text' => 'Otorisasi Password',
+                    'url'  => 'otorisasi-password',
+                    'can' => 'isAdmin'
+        
+                ],
+            ],
+
         ],
-        [
-            'text' => 'Kelola Akun',
-            'icon' => 'fas fa-users',
-            'url'  => '/users',
-            'can'  => 'isAdmin'
-        ],
-        [
-            'text' => 'Ubah Kata Sandi',
-            'url'  => 'password',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
+       
+        
+        
         //    guru
 
 
@@ -410,7 +450,9 @@ return [
         [
             'text' => ' Tentang',
             'url'  => '/about',
-            'icon' => 'fas fa-address-card'
+            'icon' => 'fas fa-address-card',
+            'can'  => ['isAdmin','isGuru']
+
         ]
 
 

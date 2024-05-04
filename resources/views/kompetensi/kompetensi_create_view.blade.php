@@ -245,9 +245,7 @@
 
 {{-- footer --}}
 @section('footer')
-    <div class="mt-2" id="mycredit"><strong> Copyright &copy; <?php echo date('Y'); ?> Sistem Informasi Buku Induk Siswa -
-            Kampus Mengajar
-            Angkatan 5 </div>
+    @include('footer')
 @stop
 
 
@@ -259,5 +257,7 @@
         function backguru() {
             window.location = "{{ route('nilaiaktif.index') }}";
         }
+
+        
     </script>
 @stop

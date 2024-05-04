@@ -271,4 +271,67 @@ class SettingSiswaController extends Controller
     {
         //
     }
+
+    public function manual()
+    {
+
+        $tahunAjaran = DB::table('tahun_ajaran')
+            ->select('id', 'tahun_ajaran')
+            ->orderBy('tahun_ajaran')
+            ->get();
+
+        $siswa = DB::table('students')
+            ->select('id', 'nis', 'nama_lengkap')
+            ->where('status', '=', 'Aktif')
+            ->orderBy('nis')
+            ->get();
+
+
+        return view('setting_siswa.setting_siswa_manual')
+            ->with(compact('siswa', 'tahunAjaran'));
+    }
+
+    public function storeManual(Request $request)
+    {
+        // Validate the request data
+        $validatedData = $request->validate([
+            'tahun' => 'required', // Add any other validation rules as needed
+            'kelas' => 'required',
+            'siswa' => 'required',
+        ]);
+
+        $settingSiswa = ModelSettingSiswa::where('id_tahun_ajaran', $validatedData['tahun'])
+            ->where('kelas', $validatedData['kelas'])
+            ->first();
+
+        if (!$settingSiswa) {
+            return redirect()->route('atursiswa.index')->with('error', 'Data Tidak Ditemukan');
+        }
+        // Access the id from the $settingSiswa object
+        $idSettingSiswa = $settingSiswa->id;
+
+        // Create a new ModelSettingDatasiswa instance
+        $modelSettingDatasiswa = new ModelSettingDatasiswa();
+        // Check if the record already exists
+        $existingRecord = ModelSettingDatasiswa::where('id_setting_siswa', $idSettingSiswa)
+            ->where('id_student', $validatedData['siswa'])
+            ->exists();
+
+        if (!$existingRecord) {
+            // Record does not exist, so create a new one
+            $modelSettingDatasiswa->id_setting_siswa = $idSettingSiswa;
+            $modelSettingDatasiswa->id_student = $validatedData['siswa'];
+            $modelSettingDatasiswa->save();
+            if ($validatedData['kelas'] == 7) {
+                $student = Students::findOrFail($validatedData['siswa']);
+                $student->status = 'Lulus';
+                $student->save();
+            }
+        } else {
+            return redirect()->route('atursiswa.index')->with('error', 'Data Sudah Ada');
+        }
+
+
+        return redirect()->route('atursiswa.index')->with('success-manual', 'Berhasil Menambahkan Siswa');
+    }
 }

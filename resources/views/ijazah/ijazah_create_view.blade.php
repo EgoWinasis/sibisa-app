@@ -35,13 +35,13 @@
 
                         {{-- ijazah --}}
                         <x-adminlte-input-file name="ijazah" value="{{old('ijazah')}}" label="Ijazah"
-                            placeholder="Pilih file PDF.." fgroup-class="col-md-12"  />
+                            placeholder="Pilih file PDF (max 2MB)" fgroup-class="col-md-12"  />
                             {{-- SKHUN --}}
                         <x-adminlte-input-file name="skhun" value="{{old('skhun')}}" label="SKHUN"
-                                placeholder="Pilih file PDF.." fgroup-class="col-md-12"/>
+                                placeholder="Pilih file PDF (max 2MB)" fgroup-class="col-md-12"/>
                         {{-- SKL --}}
                         <x-adminlte-input-file name="skl" value="{{old('skl')}}" label="Surat Keterangan"
-                            placeholder="Pilih file PDF.." fgroup-class="col-md-12"/>
+                            placeholder="Pilih file PDF (max 2MB)" fgroup-class="col-md-12"/>
                     </div>
                 </x-adminlte-card>
 

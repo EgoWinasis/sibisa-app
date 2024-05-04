@@ -60,6 +60,8 @@
                                                 ->select('id', 'id_siswa', 'kelas', 'tinggal_kelas', 'tahun_ajaran')
                                                 ->where('id_siswa', $isi->id)
                                                 ->where('kelas', $gurukelas)
+                                                ->where('tahun_ajaran', '!=', null)
+                                                ->where('tahun_ajaran', '=', $tahunAjaranAktif->tahun_ajaran)
                                                 ->orderBy('kelas', 'asc')
                                                 ->get();
 
@@ -76,7 +78,7 @@
 
                                             @endphp
                                             @if (empty($nilai))
-                                                <a class="btn btn-info btn-kelas-empty">{{ $item->kelas }}</a>
+                                                <a class="btn btn-info btn-kelas-empty"  style="cursor: not-allowed;opacity: 0.5;">{{ $item->kelas }}</a>
                                             @else
                                                 @if ($item->tinggal_kelas == 'false')
                                                     <a href="{{ route('cetak.nilai', $nilai->id) }}" target="_blank"
@@ -99,7 +101,7 @@
 
                                     @if (empty($kompetensi))
                                         <td class="text-center">
-                                            <a class="btn btn-dark btn-kompetensi"><i class="fa fa-trophy"></i></a>
+                                            <a class="btn btn-dark btn-kompetensi "  style="cursor: not-allowed;opacity: 0.5;"><i class="fa fa-trophy"></i></a>
                                         </td>
                                     @else
                                         <td class="text-center">
@@ -107,8 +109,8 @@
                                                 class="btn btn-dark"><i class="fa fa-trophy"></i></a>
                                         </td>
                                     @endif
-                                  
-                                    
+
+
                                 </tr>
                             @endforeach
                         </tbody>
@@ -134,8 +136,13 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input type="text" id="tahun_cetak" class="form-control" name="tahun_cetak"
-                            placeholder="2022/2023">
+                        <select class="form-control" id="tahun_cetak" name="tahun_cetak">
+                            @foreach ($tahunAjaran as $tahun)
+                                <option value="{{ $tahun->tahun_ajaran }}" {{ $tahun->status == 1 ? 'selected' : '' }}>
+                                    {{ $tahun->tahun_ajaran }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -152,8 +159,7 @@
 
 
 @section('footer')
-    <div id="mycredit"><strong> Copyright &copy; <?php echo date('Y'); ?> Sistem Informasi Buku Induk Siswa - Kampus Mengajar
-            Angkatan 5 </div>
+    @include('footer')
 @stop
 
 @section('js')
@@ -260,4 +266,6 @@
 
         });
     </script>
+
+
 @stop

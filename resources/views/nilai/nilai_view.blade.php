@@ -60,17 +60,32 @@
                                                 ->where('id_siswa', $isi->id)
                                                 ->orderBy('kelas', 'asc')
                                                 ->get();
+                                            $tahunAjaranAktif = DB::table('tahun_ajaran')
+                                                ->select('tahun_ajaran')
+                                                ->where('status', 1)
+                                                ->first();
                                         @endphp
 
                                         @foreach ($kelas as $item)
                                             @if ($item->tinggal_kelas == 'false')
-                                                <a href="{{ route('nilai.create', ['id' => $isi->id, 'kelas' => $item->kelas, 'tahun' => $item->tahun_ajaran]) }}"
-                                                    class="btn btn-info btn-kelas {{ $item->tahun_ajaran ? '' : 'btn-kelas-empty' }}" data data-id="{{ $item->id }}"
-                                                    data-tahun="{{ $item->tahun_ajaran }}">{{ $item->kelas }}</a>
+                                                @if ($item->tahun_ajaran == $tahunAjaranAktif->tahun_ajaran)
+                                                    <a href="{{ route('nilai.create', ['id' => $isi->id, 'kelas' => $item->kelas, 'tahun' => $item->tahun_ajaran]) }}"
+                                                        class="btn btn-info btn-kelas " data data-id="{{ $item->id }}"
+                                                        data-tahun="{{ $item->tahun_ajaran }}"
+                                                        title="{{ $item->tahun_ajaran }}">{{ $item->kelas }}</a>
+                                                @else
+                                                    <a class="btn btn-info btn-kelas btn-kelas-empty"
+                                                        style="cursor: not-allowed;opacity: 0.5;" data
+                                                        data-id="{{ $item->id }}"
+                                                        data-tahun="{{ $item->tahun_ajaran }}">{{ $item->kelas }}</a>
+                                                @endif
                                             @else
-                                                <a href="{{ route('nilai.create', ['id' => $isi->id, 'kelas' => $item->kelas, 'tahun' => $item->tahun_ajaran]) }}"
-                                                    class="btn btn-warning btn-kelas" data data-id="{{ $item->id }}"
-                                                    data-tahun="{{ $item->tahun_ajaran }}">{{ $item->kelas }}</a>
+                                                @if ($item->tahun_ajaran == $tahunAjaranAktif->tahun_ajaran)
+                                                    <a href="{{ route('nilai.create', ['id' => $isi->id, 'kelas' => $item->kelas, 'tahun' => $item->tahun_ajaran]) }}"
+                                                        class="btn btn-warning btn-kelas" data
+                                                        data-id="{{ $item->id }}"
+                                                        data-tahun="{{ $item->tahun_ajaran }}">{{ $item->kelas }}</a>
+                                                @endif
                                             @endif
                                         @endforeach
                                         <a class="btn btn-success btn-tambah" data-id="{{ $isi->id }}"><i
@@ -142,8 +157,7 @@
     <!-- /.content -->
 @stop
 @section('footer')
-    <div id="mycredit"><strong> Copyright &copy; <?php echo date('Y'); ?> Sistem Informasi Buku Induk Siswa - Kampus Mengajar
-            Angkatan 5 </div>
+    @include('footer')
 @stop
 
 @section('js')

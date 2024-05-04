@@ -20,6 +20,25 @@
                         <img src="{{ $student->foto_siswa == 'user_default_profil.png' ? asset('storage/images/user_default_profil.png') : asset('storage/images/foto-siswa/' . $student->foto_siswa) }}"
                             class=" img-thumbnail rounded mx-auto d-block">
                     </x-adminlte-card>
+                    <x-adminlte-card title="Status Siswa" theme="dark">
+                        <table width="100%">
+                            <tr>
+                                <td width="50%">Status</td>
+                                <td width="3%">:</td>
+                                <td>{{ $student->status }}</td>
+                            </tr>
+                            <tr>
+                                <td>Angkatan</td>
+                                <td>:</td>
+                                <td>{{ $student->angkatan }}</td>
+                            </tr>
+                            <tr>
+                                <td>Kelas Saat Ini</td>
+                                <td>:</td>
+                                <td>{{ $student->status != 'Aktif' ? '-' : $kelas[0] }}</td>
+                            </tr>
+                        </table>
+                    </x-adminlte-card>
                 </div>
                 <div class="col-md-8">
                     {{-- Themes --}}
@@ -384,8 +403,7 @@
     <!-- /.content -->
 @stop
 @section('footer')
-    <div id="mycredit"><strong> Copyright &copy; <?php echo date('Y'); ?> Sistem Informasi Buku Induk Siswa - Kampus Mengajar
-            Angkatan 5 </div>
+    @include('footer')
 @stop
 
 @section('js')
@@ -393,6 +411,7 @@
         function back() {
             window.location = "{{ url('/siswa') }}";
         }
+
         function back_guru() {
             window.location = "{{ url('/siswaaktif') }}";
         }

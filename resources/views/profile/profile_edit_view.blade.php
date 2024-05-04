@@ -65,10 +65,9 @@
 @stop
 
 @section('footer')
-    <div id="mycredit"><strong> Copyright &copy; <?php echo date('Y'); ?> Sistem Informasi Buku Induk Siswa - Kampus
-            Mengajar
-            Angkatan 5 </div>
+   @include('footer')
 @stop
+
 
 
 @section('plugins.Datatables', true)

@@ -31,7 +31,6 @@
                                         <th>Nama</th>
                                         <th>NIP</th>
                                         <th>Peran</th>
-                                        <th>Foto</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -45,12 +44,15 @@
                                                 <td>{{ $i++ }}</td>
                                                 <td class="nama">{{ $user->name }}</td>
                                                 <td>{{ $user->nip }}</td>
-                                                <td>{{ $user->role }}</td>
                                                 <td class="text-center">
-                                                    <img src="{{ asset('storage/images/profile/' . $user->image) }}"
-                                                        width="50px" alt="Foto">
+                                                    @if ($user->role === 'guru')
+                                                        <span class="badge bg-primary">Guru</span>
+                                                    @elseif ($user->role === 'admin')
+                                                        <span class="badge bg-danger">Admin</span>
+                                                    @endif
                                                 </td>
-                                                <td>
+
+                                                <td class="text-center">
                                                     @if ($user->isActive == 0)
                                                         <a class="btn btn-info btn-active"
                                                             data-id="{{ $user->id }}">Active</a>
@@ -77,9 +79,7 @@
     <!-- /.content -->
 @stop
 @section('footer')
-    <div id="mycredit"><strong> Copyright &copy; <?php echo date('Y'); ?> Sistem Informasi Buku Induk Siswa - Kampus
-            Mengajar
-            Angkatan 5 </div>
+    @include('footer')
 @stop
 
 @section('plugins.Datatables', true)

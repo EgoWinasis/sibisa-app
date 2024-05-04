@@ -64,6 +64,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'profile.check' => \App\Http\Middleware\CheckProfile::class,
-
+        'waliauth' => \App\Http\Middleware\WaliAuthMiddleware::class,
     ];
 }

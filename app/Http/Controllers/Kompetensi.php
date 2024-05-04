@@ -43,38 +43,38 @@ class Kompetensi extends Controller
             'id_siswa' => ['required', 'max:20'],
             // 
             'mapel_1' => ['nullable', 'string', 'max:255'],
-            'ck_1_1' => ['nullable', 'string', 'max:255'],
-            'ck_1_2' => ['nullable', 'string', 'max:255'],
+            'ck_1_1' => ['nullable', 'string'],
+            'ck_1_2' => ['nullable', 'string'],
             // 
             'mapel_2' => ['nullable', 'string', 'max:255'],
-            'ck_2_1' => ['nullable', 'string', 'max:255'],
-            'ck_2_2' => ['nullable', 'string', 'max:255'],
+            'ck_2_1' => ['nullable', 'string'],
+            'ck_2_2' => ['nullable', 'string'],
             // 
             'mapel_3' => ['nullable', 'string', 'max:255'],
-            'ck_3_1' => ['nullable', 'string', 'max:255'],
-            'ck_3_2' => ['nullable', 'string', 'max:255'],
+            'ck_3_1' => ['nullable', 'string'],
+            'ck_3_2' => ['nullable', 'string'],
             // 
             'mapel_4' => ['nullable', 'string', 'max:255'],
-            'ck_4_1' => ['nullable', 'string', 'max:255'],
-            'ck_4_2' => ['nullable', 'string', 'max:255'],
+            'ck_4_1' => ['nullable', 'string'],
+            'ck_4_2' => ['nullable', 'string'],
             // 
             'mapel_5' => ['nullable', 'string', 'max:255'],
-            'ck_5_1' => ['nullable', 'string', 'max:255'],
-            'ck_5_2' => ['nullable', 'string', 'max:255'],
+            'ck_5_1' => ['nullable', 'string'],
+            'ck_5_2' => ['nullable', 'string'],
             // 
             'mapel_6' => ['nullable', 'string', 'max:255'],
-            'ck_6_1' => ['nullable', 'string', 'max:255'],
-            'ck_6_2' => ['nullable', 'string', 'max:255'],
+            'ck_6_1' => ['nullable', 'string'],
+            'ck_6_2' => ['nullable', 'string'],
             // 
             'mapel_7' => ['nullable', 'string', 'max:255'],
             'kls' => ['required', 'string', 'max:3'],
-            'ck_7_1' => ['nullable', 'string', 'max:255'],
-            'ck_7_2' => ['nullable', 'string', 'max:255'],
+            'ck_7_1' => ['nullable', 'string'],
+            'ck_7_2' => ['nullable', 'string'],
             // 
             'mapel_8' => ['nullable', 'string', 'max:255'],
             'kls_2' => ['required', 'string', 'max:3'],
-            'ck_8_1' => ['nullable', 'string', 'max:255'],
-            'ck_8_2' => ['nullable', 'string', 'max:255'],
+            'ck_8_1' => ['nullable', 'string'],
+            'ck_8_2' => ['nullable', 'string'],
         ]);
 
         ModelKompetensi::create($validatedData);
@@ -128,38 +128,38 @@ class Kompetensi extends Controller
         $validatedData = $request->validate([
             // 
             'mapel_1' => ['nullable', 'string', 'max:255'],
-            'ck_1_1' => ['nullable', 'string', 'max:255'],
-            'ck_1_2' => ['nullable', 'string', 'max:255'],
+            'ck_1_1' => ['nullable', 'string'],
+            'ck_1_2' => ['nullable', 'string'],
             // 
             'mapel_2' => ['nullable', 'string', 'max:255'],
-            'ck_2_1' => ['nullable', 'string', 'max:255'],
-            'ck_2_2' => ['nullable', 'string', 'max:255'],
+            'ck_2_1' => ['nullable', 'string'],
+            'ck_2_2' => ['nullable', 'string'],
             // 
             'mapel_3' => ['nullable', 'string', 'max:255'],
-            'ck_3_1' => ['nullable', 'string', 'max:255'],
-            'ck_3_2' => ['nullable', 'string', 'max:255'],
+            'ck_3_1' => ['nullable', 'string'],
+            'ck_3_2' => ['nullable', 'string'],
             // 
             'mapel_4' => ['nullable', 'string', 'max:255'],
-            'ck_4_1' => ['nullable', 'string', 'max:255'],
-            'ck_4_2' => ['nullable', 'string', 'max:255'],
+            'ck_4_1' => ['nullable', 'string'],
+            'ck_4_2' => ['nullable', 'string'],
             // 
             'mapel_5' => ['nullable', 'string', 'max:255'],
-            'ck_5_1' => ['nullable', 'string', 'max:255'],
-            'ck_5_2' => ['nullable', 'string', 'max:255'],
+            'ck_5_1' => ['nullable', 'string'],
+            'ck_5_2' => ['nullable', 'string'],
             // 
             'mapel_6' => ['nullable', 'string', 'max:255'],
-            'ck_6_1' => ['nullable', 'string', 'max:255'],
-            'ck_6_2' => ['nullable', 'string', 'max:255'],
+            'ck_6_1' => ['nullable', 'string'],
+            'ck_6_2' => ['nullable', 'string'],
             // 
             'mapel_7' => ['nullable', 'string', 'max:255'],
             'kls' => ['required', 'string', 'max:3'],
-            'ck_7_1' => ['nullable', 'string', 'max:255'],
-            'ck_7_2' => ['nullable', 'string', 'max:255'],
+            'ck_7_1' => ['nullable', 'string'],
+            'ck_7_2' => ['nullable', 'string'],
             // 
             'mapel_8' => ['nullable', 'string', 'max:255'],
             'kls_2' => ['required', 'string', 'max:3'],
-            'ck_8_1' => ['nullable', 'string', 'max:255'],
-            'ck_8_2' => ['nullable', 'string', 'max:255'],
+            'ck_8_1' => ['nullable', 'string'],
+            'ck_8_2' => ['nullable', 'string'],
         ]);
 
         ModelKompetensi::where('id', $id)->update($validatedData);

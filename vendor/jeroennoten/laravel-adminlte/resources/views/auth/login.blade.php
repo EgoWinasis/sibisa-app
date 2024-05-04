@@ -7,7 +7,7 @@
 @php($login_url = View::getSection('login_url') ?? config('adminlte.login_url', 'login'))
 @php($register_url = View::getSection('register_url') ?? config('adminlte.register_url', 'register'))
 @php($password_reset_url = View::getSection('password_reset_url') ?? config('adminlte.password_reset_url', 'password/reset'))
-
+@php($loginWali = route('login.wali'));
 @if (config('adminlte.use_route_url', false))
     @php($login_url = $login_url ? route($login_url) : '')
     @php($register_url = $register_url ? route($register_url) : '')
@@ -38,7 +38,7 @@
         {{-- Email field --}}
         <div class="input-group mb-3">
             <input type="text" name="nip" class="form-control @error('nip') is-invalid @enderror"
-                value="{{ old('nip') }}" placeholder="{{ "NIP" }}" autofocus>
+                value="{{ old('nip') }}" placeholder="{{ 'NIP' }}" autofocus>
 
             <div class="input-group-append">
                 <div class="input-group-text">
@@ -96,21 +96,25 @@
 @stop
 
 @section('auth_footer')
-    {{-- Password reset link --}}
-    {{-- @if ($password_reset_url)
-        <p class="my-0">
-            <a href="{{ $password_reset_url }}">
-                {{ __('adminlte::adminlte.i_forgot_my_password') }}
-            </a>
-        </p>
-    @endif --}}
 
-    {{-- Register link --}}
-    {{-- @if ($register_url)
-        <p class="my-0">
-            <a href="{{ $register_url }}">
-                {{ "Daftar" }}
-            </a>
-        </p>
-    @endif --}}
+
+    @if ($password_reset_url || $loginWali)
+        <div class="row">
+            @if ($password_reset_url)
+                <div class="col-6 text-left">
+                    <a href="{{ $password_reset_url }}">
+                        {{ __('Forgot Password?') }}
+                    </a>
+                </div>
+            @endif
+            @if ($loginWali)
+                <div class="col-6 text-right">
+                    <a href="{{ $loginWali }}">
+                        {{ __('Login Wali Murid') }}
+                    </a>
+                </div>
+            @endif
+        </div>
+    @endif
+
 @stop
