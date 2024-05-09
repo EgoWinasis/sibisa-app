@@ -117,7 +117,7 @@
 
             Swal.fire({
                 title: 'Aktif kan Tahun Ajaran ' + tahun + ' ?',
-                type: 'warning',
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',

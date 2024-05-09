@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'BPR Nusamba Adiwerna - Otorisasi Password')
+@section('title', 'Sistem Informasi Buku Induk Siswa - Otorisasi Password')
 
 
 @section('content')
